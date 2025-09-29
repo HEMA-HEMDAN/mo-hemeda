@@ -9,6 +9,8 @@ import WhatsAppButton from "./components/WhatsAppButton.jsx";
 import NotFound from "./sections/NotFound.jsx";
 import ExamComponent from "./components/Exams.jsx";
 import { exam1, exam2, exam3 } from "./const/exams";
+import Login from "./sections/Login.jsx";
+import Register from "./sections/Register.jsx";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -53,6 +55,8 @@ const App = () => {
             path="/grades/:params"
             element={<GradeDetial id1={exam1} id2={exam2} id3={exam3} />}
           />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/exam1"
             element={
