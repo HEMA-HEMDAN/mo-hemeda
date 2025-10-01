@@ -55,8 +55,8 @@ const App = () => {
             path="/grades/:params"
             element={<GradeDetial id1={exam1} id2={exam2} id3={exam3} />}
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> */}
           <Route
             path="/exam1"
             element={
