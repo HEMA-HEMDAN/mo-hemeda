@@ -1,14 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function Register() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
      
@@ -17,12 +17,16 @@ export default function Register() {
         lastName: data.lastName,
         email: data.email,
         password: data.password,
+        phoneNumber: data.phoneNumber,
+        parentPhoneNumber: data.parentPhoneNumber,
       });
 
-      const token = res.data.data.user.token;
+      const token = res.data?.data?.user?.token || res.data?.data?.token;
+      const role = res.data?.data?.user?.role || res.data?.data?.role || "";
       localStorage.setItem("token", token);
+      if (role) localStorage.setItem("role", role);
 
-      alert("Register successful!");
+      navigate("/");  
     } catch (err) {
       console.error(err);
       alert("Register failed!");
@@ -70,6 +74,32 @@ export default function Register() {
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+
+          {/* Phone Number */}
+          <div>
+            <label className="block mb-1 font-medium">Phone Number</label>
+            <input
+              type="tel"
+              {...register("phoneNumber", { required: "Phone is required" })}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            {errors.phoneNumber && (
+              <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
+            )}
+          </div>
+
+          {/* Parent Phone Number */}
+          <div>
+            <label className="block mb-1 font-medium">Parent Phone Number</label>
+            <input
+              type="tel"
+              {...register("parentPhoneNumber", { required: "Parent phone is required" })}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            {errors.parentPhoneNumber && (
+              <p className="text-red-500 text-sm">{errors.parentPhoneNumber.message}</p>
             )}
           </div>
 

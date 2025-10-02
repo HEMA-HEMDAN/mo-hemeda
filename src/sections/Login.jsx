@@ -1,29 +1,35 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       const res = await axios.post("https://mo-server.fly.dev/users/login", {
         email: data.email,
         password: data.password,
       });
-      const token = res.data.data.token;
+      const token = res.data?.data?.token;
+      const role = res.data?.data?.user?.role || res.data?.data?.role || "";
+  
       localStorage.setItem("token", token);
-
-      alert("Login successful!");
+      if (role) localStorage.setItem("role", role);
+  
+      window.dispatchEvent(new Event("storage"));
+  
+      navigate("/");  
     } catch (err) {
       console.error(err);
       alert("Login failed!");
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Switch from "./Switch";
 
 const Navbar = () => {
   const [isDark, setIsDark] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role") || "");
   const navRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -22,6 +25,15 @@ const Navbar = () => {
       root.classList.remove("dark");
       setIsDark(false);
     }
+  }, []);
+
+  useEffect(() => {
+    const handler = () => {
+      setToken(localStorage.getItem("token"));
+      setRole(localStorage.getItem("role") || "");
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
   }, []);
 
   const toggleTheme = () => {
@@ -42,6 +54,14 @@ const Navbar = () => {
       );
     }
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setToken(null);
+    setRole("");
+    navigate("/");
+  };
 
   return (
     <nav
@@ -74,6 +94,22 @@ const Navbar = () => {
         <p className="text-white text-sm md:text-lg font-bold">
           {isDark ? "dark" : "light"}
         </p>
+
+        {!token && (
+          <div className="flex items-center gap-2">
+            <Link to="/login" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Login</Link>
+            <Link to="/register" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Register</Link>
+          </div>
+        )}
+
+        {token && (
+          <div className="flex items-center gap-2">
+            {role === "admin" && (
+              <Link to="/admin" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Dashboard</Link>
+            )}
+            <button onClick={logout} className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Logout</button>
+          </div>
+        )}
       </div>
     </nav>
   );
