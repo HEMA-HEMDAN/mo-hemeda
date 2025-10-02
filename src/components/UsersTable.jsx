@@ -56,7 +56,11 @@ const UsersTable = () => {
   const onSave = async (userId) => {
     try {
       await updateUser(userId, fields);
-      setUsers((prev) => prev.map((u) => (u._id === userId || u.id === userId ? { ...u, ...fields } : u)));
+      setUsers((prev) =>
+        prev.map((u) =>
+          u._id === userId || u.id === userId ? { ...u, ...fields } : u
+        )
+      );
       onCancel();
     } catch (e) {
       console.error(e);
@@ -79,7 +83,11 @@ const UsersTable = () => {
     <div className="overflow-x-auto">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-xl font-semibold text-white">Users</h2>
-        <button className="bg-gray-200 px-3 py-1 rounded" onClick={load} disabled={loading}>
+        <button
+          className="bg-gray-200 px-3 py-1 rounded"
+          onClick={load}
+          disabled={loading}
+        >
           Refresh
         </button>
       </div>
@@ -89,7 +97,7 @@ const UsersTable = () => {
         <table className="min-w-full border">
           <thead className="bg-gray-100">
             <tr>
-              <th className="p-2 border">ID</th>
+              {/* <th className="p-2 border">ID</th> */}
               <th className="p-2 border">First Name</th>
               <th className="p-2 border">Last Name</th>
               <th className="p-2 border">Email</th>
@@ -105,45 +113,73 @@ const UsersTable = () => {
               const isEditing = editingId === uid;
               return (
                 <tr key={uid} className="border-b">
-                  <td className="p-2 border text-xs">{uid}</td>
+                  {/* <td className="p-2 border text-xs">{uid}</td> */}
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.firstName} onChange={(e) => onChange("firstName", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.firstName}
+                        onChange={(e) => onChange("firstName", e.target.value)}
+                      />
                     ) : (
                       u.firstName
                     )}
                   </td>
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.lastName} onChange={(e) => onChange("lastName", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.lastName}
+                        onChange={(e) => onChange("lastName", e.target.value)}
+                      />
                     ) : (
                       u.lastName
                     )}
                   </td>
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.email} onChange={(e) => onChange("email", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.email}
+                        onChange={(e) => onChange("email", e.target.value)}
+                      />
                     ) : (
                       u.email
                     )}
                   </td>
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.phoneNumber} onChange={(e) => onChange("phoneNumber", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.phoneNumber}
+                        onChange={(e) =>
+                          onChange("phoneNumber", e.target.value)
+                        }
+                      />
                     ) : (
                       u.phoneNumber
                     )}
                   </td>
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.parentPhoneNumber} onChange={(e) => onChange("parentPhoneNumber", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.parentPhoneNumber}
+                        onChange={(e) =>
+                          onChange("parentPhoneNumber", e.target.value)
+                        }
+                      />
                     ) : (
                       u.parentPhoneNumber
                     )}
                   </td>
                   <td className="p-2 border">
                     {isEditing ? (
-                      <input className="border px-2 py-1 w-full" value={fields.role} onChange={(e) => onChange("role", e.target.value)} />
+                      <input
+                        className="border px-2 py-1 w-full"
+                        value={fields.role}
+                        onChange={(e) => onChange("role", e.target.value)}
+                      />
                     ) : (
                       u.role
                     )}
@@ -151,13 +187,33 @@ const UsersTable = () => {
                   <td className="p-2 border space-x-2">
                     {isEditing ? (
                       <>
-                        <button className="bg-blue-600 text-white px-3 py-1 rounded" onClick={() => onSave(uid)}>Save</button>
-                        <button className="bg-gray-400 text-white px-3 py-1 rounded" onClick={onCancel}>Cancel</button>
+                        <button
+                          className="bg-blue-600 text-white px-3 py-1 rounded"
+                          onClick={() => onSave(uid)}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="bg-gray-400 text-white px-3 py-1 rounded"
+                          onClick={onCancel}
+                        >
+                          Cancel
+                        </button>
                       </>
                     ) : (
                       <>
-                        <button className="bg-yellow-500 text-white px-3 py-1 rounded" onClick={() => onEdit(u)}>Edit</button>
-                        <button className="bg-red-600 text-white px-3 py-1 rounded" onClick={() => onDelete(uid)}>Delete</button>
+                        <button
+                          className="bg-yellow-500 text-white px-3 py-1 rounded"
+                          onClick={() => onEdit(u)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-600 text-white px-3 py-1 rounded"
+                          onClick={() => onDelete(uid)}
+                        >
+                          Delete
+                        </button>
                       </>
                     )}
                   </td>
@@ -172,5 +228,3 @@ const UsersTable = () => {
 };
 
 export default UsersTable;
-
-
