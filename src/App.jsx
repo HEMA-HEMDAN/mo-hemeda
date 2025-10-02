@@ -11,7 +11,7 @@ import ExamComponent from "./components/Exams.jsx";
 import { exam1, exam2, exam3 } from "./const/exams";
 import Login from "./sections/Login.jsx";
 import Register from "./sections/Register.jsx";
-import Admin from "./sections/Admin.jsx";
+import Admin from "./sections/admin.jsx";
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(true);
