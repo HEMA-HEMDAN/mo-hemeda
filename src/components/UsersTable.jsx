@@ -7,6 +7,10 @@ const UsersTable = () => {
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [fields, setFields] = useState({});
+  const filteredUsers = Array.isArray(users)
+    ? users.filter((u) => (u.role || "").toLowerCase() === "user")
+    : [];
+  const studentCount = filteredUsers.length;
 
   const load = async () => {
     setLoading(true);
@@ -82,7 +86,10 @@ const UsersTable = () => {
   return (
     <div className="overflow-x-auto">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xl font-semibold text-white">Users</h2>
+        <h2 className="text-xl font-semibold text-white">
+          Students
+          <span className="ml-3 text-sm font-normal text-white/80">Total: {studentCount}</span>
+        </h2>
         <button
           className="bg-gray-200 px-3 py-1 rounded"
           onClick={load}
@@ -108,7 +115,7 @@ const UsersTable = () => {
             </tr>
           </thead>
           <tbody className="bg-gray-100">
-            {users.map((u) => {
+            {filteredUsers.map((u) => {
               const uid = u.id ?? u._id;
               const isEditing = editingId === uid;
               return (
