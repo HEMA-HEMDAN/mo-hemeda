@@ -11,6 +11,14 @@ import ExamComponent from "./components/Exams.jsx";
 import { exam1, exam2, exam3 } from "./const/exams";
 import Auth from "./sections/Auth.jsx";
 import Admin from "./sections/admin.jsx";
+// ==================== Read this =========================//
+
+// we can save the whole response and we can make opration on it and take the token , role and data about
+// user to make a dashboard and we need to make diagrams insted of the tables we should searsh for a library
+// that's all after handling the logic and we should also change our host
+// we can save data iside the local storage as cookies
+// for the component file strucure we should make each sectoin component inside it's own folder to make the data more orgnized
+// we are gonna restructure the website map first bafore all that to make the best use for code
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(true);

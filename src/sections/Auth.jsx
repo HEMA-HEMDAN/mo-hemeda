@@ -1,7 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { login, newUser } from "../services/users";
+import { persistAuth } from "../utils/cookies";
 
 export default function Auth() {
   const [mode, setMode] = React.useState("login");
@@ -20,28 +22,24 @@ export default function Auth() {
     formState: { errors },
   } = useForm();
 
-  const persistAuth = (token, role) => {
-    if (token) localStorage.setItem("token", token);
-    if (role) localStorage.setItem("role", role);
-    
-    window.dispatchEvent(new Event("storage"));
-  };
+  // const persistAuth = (token, role) => {
+  //   if (token) localStorage.setItem("token", token);
+  //   if (role) localStorage.setItem("role", role);
+
+  //   window.dispatchEvent(new Event("storage"));
+  // };
 
   const handleLogin = async (data) => {
     try {
-      let response = null;
-      await axios
-        .post("https://mo-server.fly.dev/users/login", {
-          email: data.email,
-          password: data.password,
-        })
-        .then((res) => {
-          response = res.data;
-        });
+      const response = await login(data);
 
-      const token = response?.data?.token || response?.token;
-      const role = response?.data?.user?.role || response?.data?.role || response?.role || "";
-      persistAuth(token, role);
+      const token = response?.data?.token || response?.token || "";
+      const role =
+        response?.data?.user?.role ||
+        response?.data?.role ||
+        response?.role ||
+        "";
+      persistAuth(token, role, response?.data?.user || []);
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -51,23 +49,15 @@ export default function Auth() {
 
   const handleRegister = async (data) => {
     try {
-      let response = null;
-      await axios
-        .post("https://mo-server.fly.dev/users/register", {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-          phoneNumber: data.phoneNumber,
-          parentPhoneNumber: data.parentPhoneNumber,
-        })
-        .then((res) => {
-          response = res.data;
-        });
+      const response = await newUser(data);
 
-      const token = response?.data?.token || response?.token;
-      const role = response?.data?.user?.role || response?.data?.role || response?.role || "";
-      persistAuth(token, role);
+      const token = response?.data?.token || response?.token || "";
+      const role =
+        response?.data?.user?.role ||
+        response?.data?.role ||
+        response?.role ||
+        "";
+      persistAuth(token, role, response?.data?.user || []);
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -81,7 +71,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-black px-4 sm:px-6 md:px-8">
+    <div className="flex items-center justify-center min-h-screen  px-4 sm:px-6 md:px-8">
       <div className="bg-white dark:bg-[#0b2b30] border border-black/5 dark:border-white/10 p-6 sm:p-8 rounded-lg shadow-md w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         <div className="flex mb-6">
           <button
@@ -112,7 +102,9 @@ export default function Auth() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">First Name</label>
+                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                    First Name
+                  </label>
                   <input
                     type="text"
                     {...register("firstName", {
@@ -121,11 +113,15 @@ export default function Auth() {
                     className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
                   />
                   {errors.firstName && (
-                    <p className="text-red-500 text-sm">{errors.firstName.message}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors.firstName.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">Last Name</label>
+                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                    Last Name
+                  </label>
                   <input
                     type="text"
                     {...register("lastName", {
@@ -134,14 +130,18 @@ export default function Auth() {
                     className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
                   />
                   {errors.lastName && (
-                    <p className="text-red-500 text-sm">{errors.lastName.message}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors.lastName.message}
+                    </p>
                   )}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">Phone Number</label>
+                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                    Phone Number
+                  </label>
                   <input
                     type="tel"
                     {...register("phoneNumber", {
@@ -150,20 +150,27 @@ export default function Auth() {
                     className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
                   />
                   {errors.phoneNumber && (
-                    <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors.phoneNumber.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">Parent Phone Number</label>
+                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                    Parent Phone Number
+                  </label>
                   <input
                     type="tel"
                     {...register("parentPhoneNumber", {
-                      required: mode === "register" && "Parent phone is required",
+                      required:
+                        mode === "register" && "Parent phone is required",
                     })}
                     className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
                   />
                   {errors.parentPhoneNumber && (
-                    <p className="text-red-500 text-sm">{errors.parentPhoneNumber.message}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors.parentPhoneNumber.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -171,7 +178,9 @@ export default function Auth() {
           )}
 
           <div>
-            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">Email</label>
+            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+              Email
+            </label>
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
@@ -183,7 +192,9 @@ export default function Auth() {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">Password</label>
+            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+              Password
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -249,5 +260,3 @@ export default function Auth() {
     </div>
   );
 }
-
-

@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getAcademicYears, createAcademicYear, updateAcademicYear, deleteAcademicYear } from "../services/academic-years";
+import {
+  getAcademicYears,
+  createAcademicYear,
+  updateAcademicYear,
+  deleteAcademicYear,
+} from "../services/academic-years";
 
 const AcademicYearsTable = ({ onSelectYear }) => {
   const [academicYears, setAcademicYears] = useState([]);
@@ -33,9 +38,16 @@ const AcademicYearsTable = ({ onSelectYear }) => {
 
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({ title: "", telegramChannel: "", image: null });
+  const [form, setForm] = useState({
+    title: "",
+    telegramChannel: "",
+    image: "",
+  });
 
-  const resetForm = () => { setForm({ title: "", telegramChannel: "", image: null }); setEditing(null); if (fileRef.current) fileRef.current.value = ""; };
+  const resetForm = () => {
+    setForm({ title: "", telegramChannel: "", image: "" });
+    setEditing(null);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +91,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
           </button>
           <button
             className="bg-green-600 text-white px-3 py-1 rounded"
-            onClick={() => { setFormOpen(true); resetForm(); }}
+            onClick={() => {
+              setFormOpen(true);
+              resetForm();
+            }}
           >
             + Add Year
           </button>
@@ -87,7 +102,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
       </div>
 
       {formOpen && (
-        <form onSubmit={onSubmit} className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3 rounded-lg border border-black/5 bg-white/90 p-4">
+        <form
+          onSubmit={onSubmit}
+          className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3 rounded-lg border border-black/5 bg-white/90 p-4"
+        >
           <input
             placeholder="Title"
             className="border rounded px-3 py-2"
@@ -99,20 +117,32 @@ const AcademicYearsTable = ({ onSelectYear }) => {
             placeholder="Telegram Channel"
             className="border rounded px-3 py-2"
             value={form.telegramChannel}
-            onChange={(e) => setForm((p) => ({ ...p, telegramChannel: e.target.value }))}
+            onChange={(e) =>
+              setForm((p) => ({ ...p, telegramChannel: e.target.value }))
+            }
           />
           <input
             ref={fileRef}
-            type="file"
-            accept="image/*"
+            value={form.image}
+            placeholder="image link"
             className="border rounded px-3 py-2"
-            onChange={(e) => setForm((p) => ({ ...p, image: e.target.files?.[0] || null }))}
+            onChange={(e) => setForm((p) => ({ ...p, image: e.target.value }))}
           />
           <div className="flex items-center gap-2">
-            <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-3 py-2 rounded"
+            >
               {editing ? "Update" : "Create"}
             </button>
-            <button type="button" className="bg-gray-500 text-white px-3 py-2 rounded" onClick={() => { setFormOpen(false); resetForm(); }}>
+            <button
+              type="button"
+              className="bg-gray-500 text-white px-3 py-2 rounded"
+              onClick={() => {
+                setFormOpen(false);
+                resetForm();
+              }}
+            >
               Cancel
             </button>
           </div>
@@ -138,7 +168,7 @@ const AcademicYearsTable = ({ onSelectYear }) => {
               >
                 {u.image ? (
                   <img
-                    src={"https://mo-server.fly.dev/uploads/academic-years/"+u.image}
+                    src={u.image}
                     alt={u.title}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -153,21 +183,37 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <h3 className="text-lg font-semibold truncate">{u.title || "Untitled"}</h3>
-                      <p className="text-xs text-white/80">Created: {createdAt}</p>
+                      <h3 className="text-lg font-semibold truncate">
+                        {u.title || "Untitled"}
+                      </h3>
+                      <p className="text-xs text-white/80">
+                        Created: {createdAt}
+                      </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         className="px-2 py-1 rounded bg-white/90 text-gray-900 text-xs font-semibold hover:bg-white"
-                        onClick={(e) => { e.stopPropagation(); setEditing(u); setFormOpen(true); setForm({ title: u.title || "", telegramChannel: u.telegramChannel || "", image: null }); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditing(u);
+                          setFormOpen(true);
+                          setForm({
+                            title: u.title || "",
+                            telegramChannel: u.telegramChannel || "",
+                            image: u.image || "",
+                          });
+                        }}
                       >
                         Edit
                       </button>
                       <button
                         type="button"
                         className="px-2 py-1 rounded bg-red-600 text-white text-xs font-semibold hover:bg-red-700"
-                        onClick={(e) => { e.stopPropagation(); onDelete(u); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDelete(u);
+                        }}
                       >
                         Delete
                       </button>

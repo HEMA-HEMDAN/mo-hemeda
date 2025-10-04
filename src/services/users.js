@@ -15,3 +15,11 @@ export async function deleteUser(userId) {
   const res = await apiClient.delete(`/users/${userId}`);
   return res?.data;
 }
+export async function newUser(data) {
+  const res = await apiClient.post("/users/register", data);
+  return res?.data;
+}
+export async function login(data) {
+  const res = await apiClient.post("/users/login", data);
+  return res?.data;
+}

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const apiClient = axios.create({
   baseURL: "https://mo-server.fly.dev",
 });
@@ -18,5 +17,3 @@ apiClient.interceptors.request.use(
 );
 
 export default apiClient;
-
-
