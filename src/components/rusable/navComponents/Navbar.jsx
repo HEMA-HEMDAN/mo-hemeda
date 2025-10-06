@@ -1,19 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+
 import Switch from "./Switch";
 
 const Navbar = () => {
+  // the logic of the navbar is done for now the dashboard checkout the role and redirect the the right page
   const [isDark, setIsDark] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role") || "");
-  const navRef = useRef(null);
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-
+  // ========== theme tuggle =========== //
   useEffect(() => {
     const root = document.documentElement;
     const savedTheme = localStorage.getItem("theme");
@@ -29,16 +28,6 @@ const Navbar = () => {
       setIsDark(false);
     }
   }, []);
-
-  useEffect(() => {
-    const handler = () => {
-      setToken(localStorage.getItem("token"));
-      setRole(localStorage.getItem("role") || "");
-    };
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
-  }, []);
-
   const toggleTheme = () => {
     const root = document.documentElement;
     const newTheme = isDark ? "light" : "dark";
@@ -48,14 +37,13 @@ const Navbar = () => {
     setIsDark(!isDark);
   };
 
-  useGSAP(() => {
-    if (navRef.current) {
-      gsap.fromTo(
-        navRef.current,
-        { opacity: 0, y: -50, delay: 2 },
-        { opacity: 1, y: 0, duration: 2, ease: "power1.inOut" }
-      );
-    }
+  useEffect(() => {
+    const handler = () => {
+      setToken(localStorage.getItem("token"));
+      setRole(localStorage.getItem("role") || "");
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
   }, []);
 
   const logout = () => {
@@ -71,8 +59,10 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       if (!isMenuOpen) return;
       const target = event.target;
-      const clickedInsideMenu = menuRef.current && menuRef.current.contains(target);
-      const clickedToggle = toggleButtonRef.current && toggleButtonRef.current.contains(target);
+      const clickedInsideMenu =
+        menuRef.current && menuRef.current.contains(target);
+      const clickedToggle =
+        toggleButtonRef.current && toggleButtonRef.current.contains(target);
       if (!clickedInsideMenu && !clickedToggle) {
         setIsMenuOpen(false);
       }
@@ -94,7 +84,6 @@ const Navbar = () => {
 
   return (
     <nav
-      ref={navRef}
       className="fixed top-0 left-0 right-0  px-4 py-2  flex justify-between items-center z-40
                  bg-gradient-to-b 
     from-[#0F818C] 
@@ -126,17 +115,46 @@ const Navbar = () => {
 
         {!token && (
           <div className="flex items-center gap-2">
-            <Link to="/auth?tab=login" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Login</Link>
-            <Link to="/auth?tab=register" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Register</Link>
+            <Link
+              to="/auth?tab=login"
+              className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10"
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth?tab=register"
+              className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10"
+            >
+              Register
+            </Link>
           </div>
         )}
 
         {token && (
           <div className="flex items-center gap-2">
-            {role === "admin" && (
-              <Link to="/admin" className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Dashboard</Link>
+            {role === "admin" ? (
+              <Link
+                onClick={() => setIsMenuOpen(false)}
+                to="/admin"
+                className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                onClick={() => setIsMenuOpen(false)}
+                to="/user"
+                className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+              >
+                Profile
+              </Link>
             )}
-            <button onClick={logout} className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10">Logout</button>
+            <button
+              onClick={logout}
+              className="text-white font-semibold border border-white/40 px-3 py-1 rounded hover:bg-white/10"
+            >
+              Logout
+            </button>
           </div>
         )}
       </div>
@@ -159,9 +177,19 @@ const Navbar = () => {
           aria-hidden="true"
         >
           {isMenuOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           )}
         </svg>
       </button>
@@ -175,22 +203,58 @@ const Navbar = () => {
         >
           <div className="flex items-center justify-between gap-2 mb-2">
             <Switch isDark={isDark} toggleTheme={toggleTheme} />
-            <p className="text-white text-sm font-bold">{isDark ? "dark" : "light"}</p>
+            <p className="text-white text-sm font-bold">
+              {isDark ? "dark" : "light"}
+            </p>
           </div>
 
           {!token && (
             <div className="flex flex-col gap-2">
-              <Link onClick={() => setIsMenuOpen(false)} to="/auth?tab=login" className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10">Login</Link>
-              <Link onClick={() => setIsMenuOpen(false)} to="/auth?tab=register" className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10">Register</Link>
+              <Link
+                onClick={() => setIsMenuOpen(false)}
+                to="/auth?tab=login"
+                className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+              >
+                Login
+              </Link>
+              <Link
+                onClick={() => setIsMenuOpen(false)}
+                to="/auth?tab=register"
+                className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+              >
+                Register
+              </Link>
             </div>
           )}
 
           {token && (
             <div className="flex flex-col gap-2">
-              {role === "admin" && (
-                <Link onClick={() => setIsMenuOpen(false)} to="/admin" className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10">Dashboard</Link>
+              {role === "admin" ? (
+                <Link
+                  onClick={() => setIsMenuOpen(false)}
+                  to="/admin"
+                  className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link
+                  onClick={() => setIsMenuOpen(false)}
+                  to="/user"
+                  className="text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+                >
+                  Profile
+                </Link>
               )}
-              <button onClick={() => { setIsMenuOpen(false); logout(); }} className="text-left text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10">Logout</button>
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  logout();
+                }}
+                className="text-left text-white font-semibold border border-white/40 px-3 py-2 rounded hover:bg-white/10"
+              >
+                Logout
+              </button>
             </div>
           )}
         </div>

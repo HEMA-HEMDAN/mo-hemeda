@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 
 const colorMap = {
@@ -23,29 +24,31 @@ const colorMap = {
   },
 };
 
-const DashboardCard = ({ title, description, onClick, icon, color = "gray" }) => {
+const DashboardCard = ({ title, description, url, icon, color = "gray" }) => {
   const c = colorMap[color] || colorMap.gray;
   return (
-    <button
+    <Link
       className={`w-full text-left rounded-xl p-4 sm:p-5 transition shadow-sm border border-black/5 dark:border-white/10 ${c.bg} hover:ring-2 ${c.ring}`}
-      onClick={onClick}
+      to={url}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           {icon && <span className={`text-2xl ${c.icon}`}>{icon}</span>}
           <div>
-            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+              {title}
+            </h3>
             {description && (
-              <p className="text-xs sm:text-sm text-gray-600 dark:text-white/70 mt-1">{description}</p>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-white/70 mt-1">
+                {description}
+              </p>
             )}
           </div>
         </div>
         <span className="text-gray-400 dark:text-white/50">→</span>
       </div>
-    </button>
+    </Link>
   );
 };
 
 export default DashboardCard;
-
-

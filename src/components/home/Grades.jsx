@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Grade } from "../const/index.js";
-import { ScrollTrigger } from "gsap/all";
+import { Grade } from "../../const/index.js";
 
 const Grades = () => {
   const scrollRef = useRef(null);

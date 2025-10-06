@@ -1,15 +1,14 @@
-import { socialLinks } from "../const/index.js";
-
+import { socialLinks } from "../../const/index";
 
 const Footer = () => {
- 
-
   return (
-    <footer className="footer text-white pt-6 md:pt-0 pb-2 border-t-3 border-gray-600  bg-gradient-to-b 
+    <footer
+      className="footer text-white pt-6 md:pt-0 pb-2 border-t-3 border-gray-600  bg-gradient-to-b 
     from-[#0F818C] 
     via-[#095259] 
     via-64% 
-    to-[#042326]">
+    to-[#042326]"
+    >
       <div className="flex items-center justify-center md:justify-around gap-5 flex-col md:flex-row w-full">
         <div className="flex flex-col items-center justify-center gap-5 border-b-5 border-green-500 md:border-0">
           <img
@@ -27,7 +26,9 @@ const Footer = () => {
         </div>
         <div className="flex flex-col items-center justify-center gap-10">
           <h1 className="footer-link">
-            <span className="text-gray-200 text-2xl md:text-3xl">تواصل معنا</span>
+            <span className="text-gray-200 text-2xl md:text-3xl">
+              تواصل معنا
+            </span>
           </h1>
           <div className="flex gap-5 items-center justify-center h-full">
             {socialLinks.map((social) => {
@@ -63,4 +64,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

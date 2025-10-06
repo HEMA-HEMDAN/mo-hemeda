@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Book from "./Book.jsx";
-import { services } from "../const/index.js";
-import { ScrollTrigger } from "gsap/all";
+import { services } from "../../const/index.js";
 
 const Scene = ({ isMobile }) => {
   const ref = useRef();

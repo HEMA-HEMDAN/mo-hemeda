@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 // import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -6,7 +6,8 @@ import { login, newUser } from "../services/users";
 import { persistAuth } from "../utils/cookies";
 
 export default function Auth() {
-  const [mode, setMode] = React.useState("login");
+  // the logic is just fine but the design can be better
+  const [mode, setMode] = useState("login");
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -22,23 +23,12 @@ export default function Auth() {
     formState: { errors },
   } = useForm();
 
-  // const persistAuth = (token, role) => {
-  //   if (token) localStorage.setItem("token", token);
-  //   if (role) localStorage.setItem("role", role);
-
-  //   window.dispatchEvent(new Event("storage"));
-  // };
-
   const handleLogin = async (data) => {
     try {
       const response = await login(data);
 
-      const token = response?.data?.token || response?.token || "";
-      const role =
-        response?.data?.user?.role ||
-        response?.data?.role ||
-        response?.role ||
-        "";
+      const token = response?.data?.token || "";
+      const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
       navigate("/");
     } catch (err) {
@@ -51,12 +41,8 @@ export default function Auth() {
     try {
       const response = await newUser(data);
 
-      const token = response?.data?.token || response?.token || "";
-      const role =
-        response?.data?.user?.role ||
-        response?.data?.role ||
-        response?.role ||
-        "";
+      const token = response?.data?.token || "";
+      const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
       navigate("/");
     } catch (err) {

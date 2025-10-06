@@ -1,32 +1,6 @@
-import React, { useRef } from "react";
-import Typewriter from "../components/Text";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { SplitText } from "gsap/all";
-gsap.registerPlugin(SplitText);
-const Hema = ({ scrollToFeatures, text, image }) => {
-  const timeLine = gsap.timeline();
-  const splitRef = useRef(null);
-  useGSAP(() => {
-    timeLine.fromTo(
-      "#home",
-      { opacity: 0, x: -400 },
-      { opacity: 1, duration: 1, x: 0, ease: "power2.out", delay: 1 }
-    );
-    timeLine.fromTo(
-      "#text",
-      { opacity: 0, x: 400 },
-      { opacity: 1, duration: 1, x: 0, ease: "power2.out" }
-    );
+import Typewriter from "./Text";
 
-    timeLine.from(".split", {
-      x: 150,
-      opacity: 0,
-      duration: 1,
-      ease: "power4",
-      stagger: 0.04,
-    });
-  });
+const Hema = ({ scrollToFeatures, text, image }) => {
   return (
     <>
       <div className="relative flex flex-col lg:flex-row items-center justify-end  gap-5 lg:gap-15  pb-10 lg:pb-0 min-h-screen overflow-hidden w-full">
@@ -51,10 +25,7 @@ const Hema = ({ scrollToFeatures, text, image }) => {
           id="text"
           className="flex items-center justify-center flex-col h-full lg:w-1/2 p-4"
         >
-          <h1
-            ref={splitRef}
-            className="split text-4xl lg:text-6xl text-white mb-5 lg:mb-10 text-center lg:text-right"
-          >
+          <h1 className="split text-4xl lg:text-6xl text-white mb-5 lg:mb-10 text-center lg:text-right">
             <span className="text-black dark:text-white"> الاستاذ </span>
             <span className="bg-[linear-gradient(to_bottom,#005A61_0%,#008A94_50%,#00B9C7_100%)] bg-clip-text text-transparent">
               محمد حميده
