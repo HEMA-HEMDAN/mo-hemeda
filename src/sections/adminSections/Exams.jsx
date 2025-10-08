@@ -162,7 +162,7 @@ const Exams = () => {
   };
 
   return (
-    <div className="min-h-screen mt-20 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
@@ -170,7 +170,7 @@ const Exams = () => {
             <div className="flex items-center gap-4 mb-2">
               <button
                 onClick={() => navigate("/admin/academic-years")}
-                className="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-2"
+                className="text-[#c5f10f] hover:text-white font-medium flex items-center gap-2 transition-colors duration-300"
               >
                 ← Academic Years
               </button>
@@ -179,24 +179,24 @@ const Exams = () => {
                 onClick={() =>
                   navigate(`/admin/lessons/${lesson?.academicYearId?._id}`)
                 }
-                className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
+                className="text-[#c5f10f] hover:text-white font-medium flex items-center gap-2 transition-colors duration-300"
               >
                 ← Back to Lessons
               </button>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold text-white bg-gradient-to-r from-[#c5f10f] to-white bg-clip-text text-transparent">
               Exams Management
             </h1>
             {lesson && (
-              <p className="text-gray-600 mt-2">
+              <p className="text-gray-300 mt-2">
                 Managing exams for:{" "}
-                <span className="font-semibold">{lesson.title}</span>
+                <span className="font-semibold text-[#c5f10f]">{lesson.title}</span>
               </p>
             )}
           </div>
           <button
             onClick={handleAddNew}
-            className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl flex items-center gap-2"
+            className="bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-3 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl flex items-center gap-2"
           >
             ➕ Add New Exam
           </button>
@@ -206,8 +206,8 @@ const Exams = () => {
         {loading && (
           <div className="flex items-center justify-center py-12">
             <div className="flex items-center space-x-3">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-              <p className="text-gray-600 text-lg font-medium">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#c5f10f]"></div>
+              <p className="text-gray-300 text-lg font-medium">
                 Loading exams...
               </p>
             </div>
@@ -216,8 +216,8 @@ const Exams = () => {
 
         {/* Error State */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <p className="text-red-600 font-medium">⚠️ {error}</p>
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mb-6">
+            <p className="text-red-400 font-medium">⚠️ {error}</p>
           </div>
         )}
 
@@ -227,10 +227,10 @@ const Exams = () => {
             {exams.length === 0 ? (
               <div className="col-span-full text-center py-12">
                 <div className="text-6xl mb-4">📝</div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                <h3 className="text-xl font-semibold text-gray-300 mb-2">
                   No exams found
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-400">
                   Start by adding your first exam!
                 </p>
               </div>
@@ -238,24 +238,24 @@ const Exams = () => {
               exams.map((exam) => (
                 <div
                   key={exam._id || exam.id}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden"
+                  className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-[#c5f10f]/40"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+                      <h3 className="text-lg font-semibold text-white line-clamp-2">
                         {exam.title || "Untitled Exam"}
                       </h3>
                       <div className="flex gap-2 ml-4">
                         <button
                           onClick={() => handleEdit(exam)}
-                          className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
+                          className="p-2 text-[#c5f10f] hover:bg-[#c5f10f]/20 rounded-lg transition-colors"
                           title="Edit exam"
                         >
                           🖊️
                         </button>
                         <button
                           onClick={() => handleDelete(exam)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
                           title="Delete exam"
                         >
                           🗑️
@@ -264,11 +264,11 @@ const Exams = () => {
                     </div>
 
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-300">
                         <span className="font-medium">Subject:</span>
                         <span>{exam.subject || "Not specified"}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-300">
                         <span className="font-medium">Date:</span>
                         <span>
                           {exam.date
@@ -276,17 +276,17 @@ const Exams = () => {
                             : "Not scheduled"}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-300">
                         <span className="font-medium">Duration:</span>
                         <span>{exam.duration || 60} minutes</span>
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-gray-100">
-                      <div className="flex items-center justify-between text-sm text-gray-500">
+                    <div className="pt-4 border-t border-[#c5f10f]/20">
+                      <div className="flex items-center justify-between text-sm text-gray-400">
                         <span>❓ {exam.questions?.length || 0} questions</span>
                         <button
-                          className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl flex items-center gap-2"
+                          className="bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-3 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl flex items-center gap-2"
                           onClick={() =>
                             navigate(`/admin/exams/results/${exam._id}`)
                           }
@@ -305,16 +305,16 @@ const Exams = () => {
         {/* Modal */}
         {modalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                <h2 className="text-xl font-semibold text-white mb-6">
                   {editingExam ? "✏️ Edit Exam" : "➕ Add New Exam"}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
                         Title *
                       </label>
                       <input
@@ -324,13 +324,13 @@ const Exams = () => {
                         onChange={(e) =>
                           setForm({ ...form, title: e.target.value })
                         }
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                         placeholder="Enter exam title"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
                         Subject *
                       </label>
                       <input
@@ -340,13 +340,13 @@ const Exams = () => {
                         onChange={(e) =>
                           setForm({ ...form, subject: e.target.value })
                         }
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                         placeholder="Enter subject"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
                         Date *
                       </label>
                       <input
@@ -356,12 +356,12 @@ const Exams = () => {
                         onChange={(e) =>
                           setForm({ ...form, date: e.target.value })
                         }
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
                         Duration (minutes) *
                       </label>
                       <input
@@ -375,7 +375,7 @@ const Exams = () => {
                             duration: parseInt(e.target.value),
                           })
                         }
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                       />
                     </div>
                   </div>
@@ -383,13 +383,13 @@ const Exams = () => {
                   {/* Questions Section */}
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-medium text-gray-900">
+                      <h3 className="text-lg font-medium text-white">
                         Questions
                       </h3>
                       <button
                         type="button"
                         onClick={addQuestion}
-                        className="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg hover:bg-purple-200 transition-colors text-sm font-medium"
+                        className="bg-[#c5f10f]/20 text-[#c5f10f] px-4 py-2 rounded-lg hover:bg-[#c5f10f]/30 transition-colors text-sm font-medium"
                       >
                         ➕ Add Question
                       </button>
@@ -399,16 +399,16 @@ const Exams = () => {
                       {form.questions.map((question, index) => (
                         <div
                           key={index}
-                          className="border border-gray-200 rounded-lg p-4"
+                          className="border border-[#c5f10f]/20 rounded-lg p-4 bg-[#121821]/50"
                         >
                           <div className="flex items-center justify-between mb-3">
-                            <span className="text-sm font-medium text-gray-700">
+                            <span className="text-sm font-medium text-gray-300">
                               Question {index + 1}
                             </span>
                             <button
                               type="button"
                               onClick={() => removeQuestion(index)}
-                              className="text-red-600 hover:text-red-800 text-sm"
+                              className="text-red-400 hover:text-red-300 text-sm"
                             >
                               🗑️ Remove
                             </button>
@@ -416,7 +416,7 @@ const Exams = () => {
 
                           <div className="space-y-3">
                             <div>
-                              <label className="block text-sm font-medium text-gray-600 mb-1">
+                              <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Question Text *
                               </label>
                               <input
@@ -430,13 +430,13 @@ const Exams = () => {
                                     e.target.value
                                   )
                                 }
-                                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                className="w-full border border-[#c5f10f]/30 bg-[#0f141b] text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                                 placeholder="Enter question text"
                               />
                             </div>
 
                             <div>
-                              <label className="block text-sm font-medium text-gray-600 mb-1">
+                              <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Type *
                               </label>
                               <select
@@ -444,7 +444,7 @@ const Exams = () => {
                                 onChange={(e) =>
                                   updateQuestion(index, "type", e.target.value)
                                 }
-                                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                className="w-full border border-[#c5f10f]/30 bg-[#0f141b] text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                               >
                                 <option value="mcq">Multiple Choice</option>
                                 <option value="true_false">True/False</option>
@@ -453,7 +453,7 @@ const Exams = () => {
 
                             {question.type === "mcq" && (
                               <div>
-                                <label className="block text-sm font-medium text-gray-600 mb-1">
+                                <label className="block text-sm font-medium text-gray-300 mb-1">
                                   Options *
                                 </label>
                                 {question.options.map((option, optionIndex) => (
@@ -469,12 +469,12 @@ const Exams = () => {
                                         e.target.value
                                       )
                                     }
-                                    className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                    className="w-full border border-[#c5f10f]/30 bg-[#0f141b] text-white rounded-lg px-3 py-2 mb-2 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                                     placeholder={`Option ${optionIndex + 1}`}
                                   />
                                 ))}
                                 <div className="mt-2">
-                                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                                  <label className="block text-sm font-medium text-gray-300 mb-1">
                                     Correct Answer *
                                   </label>
                                   <input
@@ -488,7 +488,7 @@ const Exams = () => {
                                         e.target.value
                                       )
                                     }
-                                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                    className="w-full border border-[#c5f10f]/30 bg-[#0f141b] text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                                     placeholder="Enter correct answer"
                                   />
                                 </div>
@@ -497,7 +497,7 @@ const Exams = () => {
 
                             {question.type === "true_false" && (
                               <div>
-                                <label className="block text-sm font-medium text-gray-600 mb-1">
+                                <label className="block text-sm font-medium text-gray-300 mb-1">
                                   Correct Answer *
                                 </label>
                                 <select
@@ -509,7 +509,7 @@ const Exams = () => {
                                       e.target.value
                                     )
                                   }
-                                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                  className="w-full border border-[#c5f10f]/30 bg-[#0f141b] text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                                 >
                                   <option value="">Select answer</option>
                                   <option value="true">True</option>
@@ -522,7 +522,7 @@ const Exams = () => {
                       ))}
 
                       {form.questions.length === 0 && (
-                        <div className="text-center py-8 text-gray-500">
+                        <div className="text-center py-8 text-gray-400">
                           <p>
                             No questions added yet. Click "Add Question" to get
                             started.
@@ -532,7 +532,7 @@ const Exams = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-3 pt-4 border-t border-gray-200">
+                  <div className="flex gap-3 pt-4 border-t border-[#c5f10f]/20">
                     <button
                       type="button"
                       onClick={() => {
@@ -545,7 +545,7 @@ const Exams = () => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 font-medium shadow-lg"
+                      className="flex-1 bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-4 py-3 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg"
                     >
                       {editingExam ? "💾 Update" : "✨ Create"}
                     </button>

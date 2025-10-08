@@ -21,25 +21,40 @@ const Admin = () => {
     }
   }
   return (
-    <section className=" h-screen flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-5">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Admin
-        </h1>
-        <DashboardCard
-          title="Users"
-          description="Manage users"
-          icon="👥"
-          url={"/admin/users"}
-          color="blue"
-        />
-        <DashboardCard
-          title="academic years"
-          description="Manage academic years"
-          icon="👥"
-          url="/admin/academic-years"
-          color="blue"
-        />
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
+      <div className="w-full max-w-4xl">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Admin Dashboard
+          </h1>
+          <p className="text-gray-300 text-lg">
+            Manage your educational platform
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <DashboardCard
+            title="Users"
+            description="Manage student accounts"
+            icon="👥"
+            url={"/admin/users"}
+            color="primary"
+          />
+          <DashboardCard
+            title="Academic Years"
+            description="Manage academic periods"
+            icon="📚"
+            url="/admin/academic-years"
+            color="secondary"
+          />
+          <DashboardCard
+            title="Lessons"
+            description="Organize course content"
+            icon="📖"
+            url="/admin/lessons"
+            color="accent"
+          />
+        </div>
       </div>
     </section>
   );

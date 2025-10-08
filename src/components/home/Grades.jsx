@@ -16,7 +16,7 @@ const Grades = () => {
     <section className="my-30 w-full overflow-hidden">
       <div className="flex flex-col items-center justify-center gap-20 my-5 md:my-10">
         <h1
-          className="text-3xl md:text-5xl text-green-500 text-center font-bold"
+          className="text-3xl md:text-5xl text-[#c5f10f] text-center font-bold"
           ref={href}
         >
           السنوات الدراسيه
@@ -45,7 +45,7 @@ const Grades = () => {
                     <h1 className="text-center text-lg md:text-4xl lg:text-3xl">
                       {year.title}
                     </h1>
-                    <div className="w-full h-1 bg-[#c4d14f] my-2"></div>
+                    <div className="w-full h-1 bg-[#c5f10f] my-2"></div>
                     <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
                       دروس {year.title}
                     </h1>

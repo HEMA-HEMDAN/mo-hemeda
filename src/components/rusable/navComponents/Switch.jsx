@@ -9,7 +9,7 @@ const Switch = ({ isDark, toggleTheme }) => {
       <label className="switch">
         <span className="sun">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g fill="#ffd43b">
+            <g fill="#c5f10f">
               <circle r={5} cy={12} cx={12} />
               <path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z" />
             </g>
@@ -59,7 +59,7 @@ const StyledWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #73C0FC;
+    background-color: #c5f10f; /* track when light */
     transition: .4s;
     border-radius: 30px;
   }
@@ -73,7 +73,7 @@ const StyledWrapper = styled.div`
     left: 2px;
     bottom: 2px;
     z-index: 2;
-    background-color: #e8e8e8;
+    background-color: #1b232e; /* knob default */
     transition: .4s;
   }
 
@@ -87,7 +87,7 @@ const StyledWrapper = styled.div`
   }
 
   .moon svg {
-    fill: #73C0FC;
+    fill: #c5f10f;
     position: absolute;
     top: 5px;
     left: 5px;
@@ -117,11 +117,11 @@ const StyledWrapper = styled.div`
   }
 
   .input:checked + .slider {
-    background-color: #183153;
+    background-color: #1b232e; /* track when dark */
   }
 
   .input:focus + .slider {
-    box-shadow: 0 0 1px #183153;
+    box-shadow: 0 0 1px #1b232e;
   }
 
   .input:checked + .slider:before {

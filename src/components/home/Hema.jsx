@@ -27,7 +27,7 @@ const Hema = ({ scrollToFeatures, text, image }) => {
         >
           <h1 className="split text-4xl lg:text-6xl text-white mb-5 lg:mb-10 text-center lg:text-right">
             <span className="text-black dark:text-white"> الاستاذ </span>
-            <span className="bg-[linear-gradient(to_bottom,#005A61_0%,#008A94_50%,#00B9C7_100%)] bg-clip-text text-transparent">
+            <span className="bg-[linear-gradient(to_bottom,#a3c20b_0%,#c5f10f_50%,#e0ff4f_100%)] bg-clip-text text-transparent">
               محمد حميده
             </span>
           </h1>
@@ -36,7 +36,7 @@ const Hema = ({ scrollToFeatures, text, image }) => {
 
           <div
             onClick={scrollToFeatures}
-            className="shake flex items-center justify-center bg-[linear-gradient(to_bottom,#0F818C_0%,#095259_40%,#073A40_64%,#042326_100%)] py-2 px-4 md:px-6 rounded-lg mt-5 md:mt-10
+            className="shake flex items-center justify-center bg-[linear-gradient(to_bottom,#121821_0%,#1b232e_40%,#141b24_64%,#0f141b_100%)] py-2 px-4 md:px-6 rounded-lg mt-5 md:mt-10
              text-white text-lg md:text-2xl font-bold hover:scale-105 transition-transform duration-300 shadow-md cursor-pointer"
           >
             <img
@@ -44,7 +44,7 @@ const Hema = ({ scrollToFeatures, text, image }) => {
               alt=""
               className="w-8 md:w-12 mr-4"
             />
-            <button className="bg-[linear-gradient(to_bottom,#CCCCCC_50%,#999999_100%)] bg-clip-text text-transparent">
+            <button className="bg-[linear-gradient(to_bottom,#a3c20b_0%,#c5f10f_60%,#e0ff4f_100%)] bg-clip-text text-transparent text-white">
               يلا بينا
             </button>
           </div>
