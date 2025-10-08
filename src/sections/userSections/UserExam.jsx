@@ -4,6 +4,10 @@ import { sibmitExam } from "../../services/rusult";
 import { getLessonById } from "../../services/lessons";
 
 const UserExam = () => {
+  // first thing you need to do is to remove the exam temblete and use the examRenderer templete to make the exam
+  // experince better it need some work but you can do it read carefully the exam file and pass the exam to the templete
+  // and use the templete to render the exam and put the submit function there it will be better and that's will be it for the exams
+  //and after sumbit make it navigate to the home page
   const { examId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();

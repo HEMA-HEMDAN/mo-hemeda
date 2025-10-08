@@ -4,6 +4,8 @@ import { getResult } from "../../services/rusult";
 import { getLessonById } from "../../services/lessons";
 
 const Result = () => {
+  // there some work to do here you should refactor the maped object to match the responde and use the date of the exam to get the date of the result
+  // and the time of the exam to get the time of the result and use that to make conditions for showing the result
   const { examId } = useParams();
   const location = useLocation();
   const lessonId = location?.state?.lessonId || null;

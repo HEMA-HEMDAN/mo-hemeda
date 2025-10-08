@@ -25,6 +25,12 @@ import Result from "./sections/userSections/Result.jsx";
 // we can save data iside the local storage as cookies
 // for the component file strucure we should make each sectoin component inside it's own folder to make the data more orgnized
 // we are gonna restructure the website map first bafore all that to make the best use for code
+// ===================== the new instructions =====================//
+// first you will go to the user page it should desplay all exams result for the user you need to match the response with the
+// exam data
+// then you should make some edit's with the users sections you should read them very carefully
+// there some instractions at the start of some pages just don't fuck my logic
+// and i wish you good luck ya zemely :)
 const App = () => {
   return (
     <>

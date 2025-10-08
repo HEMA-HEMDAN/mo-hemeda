@@ -1,7 +1,9 @@
 // src/components/ExamComponent.js
 
 import React, { useState, useEffect, useCallback } from "react";
-
+// this file should render the exam object which was existing at the exams.js file
+// so to understand the logic you should go to git old commits and restore this file and use make the changes that fit
+// the exam object witch come from the response from the backend
 const ExamComponent = ({ questionsData }) => {
   const [userAnswers, setUserAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUserResults } from "../../services/rusult";
 
 const User = () => {
+  // this one is hell of work you need to do almost the same as the result file so good luck
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
