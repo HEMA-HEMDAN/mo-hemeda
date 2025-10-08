@@ -3,11 +3,11 @@ import { socialLinks } from "../../const/index";
 const Footer = () => {
   return (
     <footer
-      className="footer text-white pt-6 md:pt-0 pb-2 border-t-3 border-gray-600  bg-gradient-to-b 
-    from-[#0F818C] 
-    via-[#095259] 
+      className="footer text-white pt-6 md:pt-0 pb-2 border-t-3 border-[#1b232e]  bg-gradient-to-b 
+    from-[#121821] 
+    via-[#1b232e] 
     via-64% 
-    to-[#042326]"
+    to-[#0f141b]"
     >
       <div className="flex items-center justify-center md:justify-around gap-5 flex-col md:flex-row w-full">
         <div className="flex flex-col items-center justify-center gap-5 border-b-5 border-green-500 md:border-0">
@@ -18,9 +18,9 @@ const Footer = () => {
           />
           <h1 className="text-2xl md:text-3xl text-white text-center md:text-right footer-link">
             <span className="text-white"> الاستاذ </span>
-            <span className="text-green-500">محمد حميده</span>
+            <span className="text-[#c5f10f]">محمد حميده</span>
           </h1>
-          <p className="text-[#c4d14f] mb-5 md:mb-0 footer-link">
+          <p className="text-[#c5f10f] mb-5 md:mb-0 footer-link">
             <span>❤️❤️</span> <span>الرياضيات بشكل تاني</span>
           </p>
         </div>
@@ -55,8 +55,13 @@ const Footer = () => {
       </div>
 
       <div className="mt-10 text-center text-[10px] md:text-lg footer-link">
+      <p>
+      <a href="https://mo-wael.com/" target="_blank">
+          &copy; {new Date().getFullYear()} Mohamed Wael .
+        </a> 
+        </p>
         <a href="https://hema-cyan.vercel.app/" target="_blank">
-          &copy; {new Date().getFullYear()} HEMA All rights reserved.
+          &copy; {new Date().getFullYear()} HEMA .
         </a>
       </div>
     </footer>

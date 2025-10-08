@@ -60,7 +60,7 @@ export default function Auth() {
 
   return (
     <div className="flex items-center justify-center min-h-screen  px-4 sm:px-6 md:px-8">
-      <div className="bg-white dark:bg-[#0b2b30] border border-black/5 dark:border-white/10 p-6 sm:p-8 rounded-lg shadow-md w-full max-w-lg sm:max-w-xl md:max-w-2xl">
+      <div className="bg-white dark:bg-[#1b232e] border border-black/5 dark:border-white/10 p-6 sm:p-8 rounded-lg shadow-md w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         <div className="flex mb-6">
           <button
             onClick={() => setMode("login")}
@@ -98,7 +98,7 @@ export default function Auth() {
                     {...register("firstName", {
                       required: mode === "register" && "First name is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
                   />
                   {errors.firstName && (
                     <p className="text-red-500 text-sm">
@@ -115,7 +115,7 @@ export default function Auth() {
                     {...register("lastName", {
                       required: mode === "register" && "Last name is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
                   />
                   {errors.lastName && (
                     <p className="text-red-500 text-sm">
@@ -135,7 +135,7 @@ export default function Auth() {
                     {...register("phoneNumber", {
                       required: mode === "register" && "Phone is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
                   />
                   {errors.phoneNumber && (
                     <p className="text-red-500 text-sm">
@@ -153,7 +153,7 @@ export default function Auth() {
                       required:
                         mode === "register" && "Parent phone is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
                   />
                   {errors.parentPhoneNumber && (
                     <p className="text-red-500 text-sm">
@@ -172,7 +172,7 @@ export default function Auth() {
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -187,7 +187,7 @@ export default function Auth() {
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", { required: "Password is required" })}
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10 dark:bg-[#0a2327] dark:text-white dark:border-white/10"
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] pr-10 dark:bg-[#121821] dark:text-white dark:border-white/10"
               />
               <button
                 type="button"

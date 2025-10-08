@@ -11,14 +11,16 @@ const AcademicYears = () => {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center">
-      <button
-        onClick={() => navigate("/admin")}
-        className="text-blue-600 hover:text-blue-800 font-medium mb-2 flex items-center gap-2"
-      >
-        ← Back to Dashboard
-      </button>
-      <AcademicYearsTable onSelectYear={handleYearClick} />
+    <section className="min-h-screen  p-6">
+      <div className="max-w-7xl mx-auto">
+        <button
+          onClick={() => navigate("/admin")}
+          className="text-[#c5f10f] hover:text-white font-medium mb-6 flex items-center gap-2 transition-colors duration-300"
+        >
+          ← Back to Dashboard
+        </button>
+        <AcademicYearsTable onSelectYear={handleYearClick} />
+      </div>
     </section>
   );
 };

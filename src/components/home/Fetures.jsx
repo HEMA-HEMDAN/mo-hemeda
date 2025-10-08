@@ -58,7 +58,7 @@ const Fetures = () => {
         </div>
 
         <h1 className="text-3xl md:text-7xl text-black dark:text-white">
-          <span className="text-blue-500">?..</span> خدماتنا
+          <span className="text-[#c5f10f]">?..</span> خدماتنا
         </h1>
       </div>
 

@@ -78,21 +78,22 @@ const AcademicYearsTable = ({ onSelectYear }) => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 ">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="w-full max-w-7xl mx-auto p-4 sm:p-6">
+      <div className="flex flex-col items-center justify-center gap-20 my-5 md:my-10">
+        <h1 className="text-3xl md:text-5xl text-[#c5f10f] text-center font-bold">
           Academic Years
-        </h2>
+        </h1>
+        
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
-            className="w-full sm:w-auto bg-white/10 backdrop-blur-sm text-gray-900 dark:text-white px-4 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            className="w-full sm:w-auto bg-[#121821] text-[#c5f10f] border border-[#c5f10f]/30 px-4 py-2 rounded-lg hover:bg-[#121821]/80 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             onClick={load}
             disabled={loading}
           >
             {loading ? "Loading..." : "🔄 Refresh"}
           </button>
           <button
-            className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
+            className="w-full sm:w-auto bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-2 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
             onClick={() => {
               setFormOpen(true);
               resetForm();
@@ -105,19 +106,19 @@ const AcademicYearsTable = ({ onSelectYear }) => {
 
       {formOpen && (
         <div className="mb-8">
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-2xl p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+          <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-2xl shadow-2xl p-6">
+            <h3 className="text-xl font-semibold text-white mb-6">
               {editing ? "✏️ Edit Academic Year" : "➕ Add New Academic Year"}
             </h3>
             <form onSubmit={onSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-300">
                     Title *
                   </label>
                   <input
                     placeholder="Enter academic year title"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/80"
+                    className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                     value={form.title}
                     onChange={(e) =>
                       setForm((p) => ({ ...p, title: e.target.value }))
@@ -126,12 +127,12 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-300">
                     Telegram Channel
                   </label>
                   <input
                     placeholder="Enter telegram channel URL"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/80"
+                    className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                     value={form.telegramChannel}
                     onChange={(e) =>
                       setForm((p) => ({
@@ -142,21 +143,21 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-300">
                     Image URL
                   </label>
                   <input
                     ref={fileRef}
                     value={form.image}
                     placeholder="Enter image URL"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/80"
+                    className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
                     onChange={(e) =>
                       setForm((p) => ({ ...p, image: e.target.value }))
                     }
                   />
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-[#c5f10f]/20">
                 <button
                   type="button"
                   className="w-full sm:w-auto bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-all duration-200 font-medium"
@@ -169,7 +170,7 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                 </button>
                 <button
                   type="submit"
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-8 py-3 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
                 >
                   {editing ? "💾 Update Year" : "✨ Create Year"}
                 </button>
@@ -182,8 +183,8 @@ const AcademicYearsTable = ({ onSelectYear }) => {
       {loading && (
         <div className="flex items-center justify-center py-12">
           <div className="flex items-center space-x-3">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="text-white text-lg font-medium">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#c5f10f]"></div>
+            <p className="text-gray-300 text-lg font-medium">
               Loading academic years...
             </p>
           </div>
@@ -196,7 +197,7 @@ const AcademicYearsTable = ({ onSelectYear }) => {
       )}
 
       {!loading && !error && Array.isArray(academicYears) && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-5 md:gap-10 mx-5 md:mx-10">
           {academicYears.map((u) => {
             const uid = u._id || u.id; // fallback
             const createdAt = u.createdAt
@@ -206,58 +207,40 @@ const AcademicYearsTable = ({ onSelectYear }) => {
             return (
               <div
                 key={uid}
-                className="group relative aspect-square rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
-                onClick={() => onSelectYear && onSelectYear(u)}
+                className="flex flex-col items-center justify-center"
               >
-                {u.image ? (
-                  <img
-                    src={u.image}
-                    alt={u.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                ) : (
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center text-gray-500">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">📚</div>
-                      <p className="text-sm font-medium">No Image</p>
-                    </div>
-                  </div>
-                )}
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-lg font-bold truncate mb-1">
-                          {u.title || "Untitled"}
-                        </h3>
-                        <p className="text-xs text-white/70 flex items-center gap-1">
-                          <span>📅</span>
-                          Created: {createdAt}
-                        </p>
+                <div className="flex flex-col mb-10 cursor-pointer" onClick={() => onSelectYear && onSelectYear(u)}>
+                  <div className="group rounded-xl overflow-hidden w-[300px] lg:w-[400px] md:w-[550px] h-[200px] lg:h-[250px] md:h-[300px]">
+                    {u.image ? (
+                      <img
+                        src={u.image}
+                        alt={u.title}
+                        className="w-full h-full object-cover transform group-hover:scale-110 duration-500 ease-in-out grayscale-30 hover:grayscale-0"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center text-gray-500">
+                        <div className="text-center">
+                          <div className="text-4xl mb-2">📚</div>
+                          <p className="text-sm font-medium">No Image</p>
+                        </div>
                       </div>
-                    </div>
+                    )}
+                  </div>
 
-                    <div className="flex flex-wrap items-center gap-2">
-                      {u.telegramChannel && (
-                        <a
-                          href={u.telegramChannel}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-semibold hover:bg-white/30 transition-all duration-200 flex items-center gap-1"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          📱 Telegram
-                        </a>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2 pt-2 border-t border-white/20">
+                  <div className="flex flex-col items-center justify-center px-4 mx-2 md:px-8 py-4 rounded-md -mt-10 bg-gray-100 dark:bg-gray-900 text-black dark:text-gray-200 z-10 hover:scale-105 duration-500">
+                    <h1 className="text-center text-lg md:text-4xl lg:text-3xl">
+                      {u.title || "Untitled"}
+                    </h1>
+                    <div className="w-full h-1 bg-[#c5f10f] my-2"></div>
+                    <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
+                      {u.telegramChannel ? "📱 Telegram Available" : "📚 Academic Year"}
+                    </h1>
+                    
+                    {/* Admin Action Buttons */}
+                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-300 dark:border-gray-600">
                       <button
                         type="button"
-                        className="flex-1 px-3 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white text-xs font-semibold hover:bg-white/30 transition-all duration-200 flex items-center justify-center gap-1"
+                        className="px-3 py-1.5 rounded-lg bg-[#c5f10f] text-[#1b232e] text-xs font-semibold hover:bg-[#a8d708] transition-all duration-200 flex items-center gap-1"
                         onClick={(e) => {
                           e.stopPropagation();
                           setEditing(u);
@@ -273,7 +256,7 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                       </button>
                       <button
                         type="button"
-                        className="flex-1 px-3 py-2 rounded-lg bg-red-500/80 backdrop-blur-sm text-white text-xs font-semibold hover:bg-red-600/80 transition-all duration-200 flex items-center justify-center gap-1"
+                        className="px-3 py-1.5 rounded-lg bg-red-500 text-white text-xs font-semibold hover:bg-red-600 transition-all duration-200 flex items-center gap-1"
                         onClick={(e) => {
                           e.stopPropagation();
                           onDelete(u);

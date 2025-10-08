@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import Fetures from "../components/home/Fetures";
+import About from "../components/home/About";
+import IconStripe from "../components/home/IconStripe";
 import Grades from "../components/home/Grades";
 import Hema from "../components/home/Hema";
 import Loading from "../components/rusable/Loading";
@@ -16,6 +18,8 @@ const Home = () => {
         text={["ازيك  يا باشا عامل ايه 😊", "مش كفايه لعب ويلا  نذاكر 🤓"]}
         image={"/home/hero.png"}
       />
+      <About />
+      <IconStripe />
       <div ref={featuresRef}>
         <Fetures />
       </div>
