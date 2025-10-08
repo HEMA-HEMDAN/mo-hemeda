@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getUsers, updateUser, deleteUser } from "../../services/users";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [fields, setFields] = useState({});
+  const [page, setPage] = useState(1);
+  const navigate = useNavigate();
   const filteredUsers = Array.isArray(users)
     ? users.filter((u) => (u.role || "").toLowerCase() === "user")
     : [];
-  const studentCount = filteredUsers.length;
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const data = await getUsers();
+      const data = await getUsers(10, page);
       setUsers(Array.isArray(data) ? data : []);
     } catch (e) {
       console.error(e);
@@ -23,7 +26,7 @@ const AdminUsers = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,7 +35,7 @@ const AdminUsers = () => {
       return;
     }
     load();
-  }, []);
+  }, [load]);
 
   const onEdit = (u) => {
     const uid = u.id ?? u._id;
@@ -68,6 +71,9 @@ const AdminUsers = () => {
     } catch (e) {
       console.error(e);
       alert("Failed to update user");
+    } finally {
+      setEditingId(null);
+      toast.success("User updated successfully");
     }
   };
 
@@ -79,10 +85,18 @@ const AdminUsers = () => {
     } catch (e) {
       console.error(e);
       alert("Failed to delete user");
+    } finally {
+      toast.success("User deleted successfully");
     }
   };
   return (
     <section className="min-h-screen w-full  my-20 overflow-hidden lg:flex lg:flex-col lg:items-center lg:justify-center">
+      <button
+        onClick={() => navigate("/admin")}
+        className="text-blue-600 hover:text-blue-800 font-medium mb-2 flex items-center gap-2"
+      >
+        ← Back to Dashboard
+      </button>
       <div className="mb-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
           User Management
@@ -98,17 +112,33 @@ const AdminUsers = () => {
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
               📚 Students
             </h2>
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
-              Total: {studentCount}
+            <div className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-full text-xs font-semibold">
+              Page: {page}
             </div>
           </div>
-          <button
-            className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-            onClick={load}
-            disabled={loading}
-          >
-            {loading ? "🔄 Loading..." : "🔄 Refresh"}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              className="bg-gradient-to-r from-green-500 to-emerald-600 text-white text-sm lg:text-lg px-2 py-3 lg:px-6 lg:py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={load}
+              disabled={loading}
+            >
+              {loading ? "🔄 Loading..." : "🔄 Refresh"}
+            </button>
+            <button
+              className="bg-gradient-to-r from-gray-500 to-gray-600 text-white text-sm lg:text-lg px-2 py-3 lg:px-6 lg:py-3 rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={loading || page === 1}
+            >
+              ⬅️ Prev 10
+            </button>
+            <button
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm lg:text-lg px-2 py-3 lg:px-6 lg:py-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setPage((p) => p + 1)}
+              disabled={loading}
+            >
+              ➡️ Next 10
+            </button>
+          </div>
         </div>
         {loading && (
           <div className="flex items-center justify-center py-12">
@@ -150,9 +180,9 @@ const AdminUsers = () => {
                     <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                       👨‍👩‍👧‍👦 Parent Phone
                     </th>
-                    <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                    {/* <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                       🎭 Role
-                    </th>
+                    </th> */}
                     <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                       ⚙️ Actions
                     </th>
@@ -245,7 +275,7 @@ const AdminUsers = () => {
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-4 whitespace-nowrap">
+                        {/* <td className="px-4 py-4 whitespace-nowrap">
                           {isEditing ? (
                             <input
                               className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
@@ -257,7 +287,7 @@ const AdminUsers = () => {
                               {u.role || "user"}
                             </span>
                           )}
-                        </td>
+                        </td> */}
                         <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
                           {isEditing ? (
                             <div className="flex items-center gap-2">
@@ -432,7 +462,7 @@ const AdminUsers = () => {
                               }
                             />
                           </div>
-                          <div className="flex items-center space-x-3">
+                          {/* <div className="flex items-center space-x-3">
                             <span className="text-gray-500 dark:text-gray-400 text-sm w-16">
                               🎭 Role:
                             </span>
@@ -441,7 +471,7 @@ const AdminUsers = () => {
                               value={fields.role}
                               onChange={(e) => onChange("role", e.target.value)}
                             />
-                          </div>
+                          </div> */}
                         </>
                       )}
                     </div>

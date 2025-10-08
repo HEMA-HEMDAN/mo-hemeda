@@ -10,6 +10,9 @@ import Admin from "./sections/adminSections/Admin.jsx";
 import User from "./sections/User.jsx";
 import AdminUsers from "./sections/adminSections/AdminUsers.jsx";
 import AcademicYears from "./sections/adminSections/AcademicYears.jsx";
+import Lessons from "./sections/adminSections/Lessons.jsx";
+import Exams from "./sections/adminSections/Exams.jsx";
+import AdminResults from "./sections/adminSections/AdminResults.jsx";
 // ==================== Read this =========================//
 
 // we can save the whole response and we can make opration on it and take the token , role and data about
@@ -38,6 +41,12 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/academic-years" element={<AcademicYears />} />
+          <Route path="/admin/lessons/:academicYearId" element={<Lessons />} />
+          <Route path="/admin/exams/:lessonId" element={<Exams />} />
+          <Route
+            path="/admin/exams/results/:examId"
+            element={<AdminResults />}
+          />
           // =================== the user page =========================//
           <Route path="/user" element={<User />} />
           // =================== the not found page =========================//

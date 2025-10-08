@@ -1,9 +1,11 @@
 import apiClient from "../lib/apiClient";
 //  ====================admin functions only===============//
-export async function getUsers() {
-  const res = await apiClient.get("/users").catch((e) => {
-    console.error(e);
-  });
+export async function getUsers(limit = 10, page = 1) {
+  const res = await apiClient
+    .get(`/users?limit=${limit}&page=${page}`)
+    .catch((e) => {
+      console.error(e);
+    });
 
   return res?.data?.data?.users ?? [];
 }

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { login, newUser } from "../services/users";
 import { persistAuth } from "../utils/cookies";
+import { toast } from "react-toastify";
 
 export default function Auth() {
   // the logic is just fine but the design can be better
@@ -26,10 +27,11 @@ export default function Auth() {
   const handleLogin = async (data) => {
     try {
       const response = await login(data);
-
+      toast.success("Login successful!");
       const token = response?.data?.token || "";
       const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
+
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -40,7 +42,7 @@ export default function Auth() {
   const handleRegister = async (data) => {
     try {
       const response = await newUser(data);
-
+      toast.success("Register successful!");
       const token = response?.data?.token || "";
       const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
