@@ -1,15 +1,13 @@
 import apiClient from "../lib/apiClient";
-export async function sibmitExam(studientId, examId, payload) {
+export async function sibmitExam(lessonId, examId, payload) {
   const res = await apiClient.post(
-    `/result/${studientId}/exams/${examId}/submit`,
+    `/result/${lessonId}/exams/${examId}/submit`,
     payload
   );
   return res?.data;
 }
-export async function getResult(studientId, examId) {
-  const res = await apiClient.get(
-    `/result/${studientId}/exams/${examId}/result`
-  );
+export async function getResult(lessonId, examId) {
+  const res = await apiClient.get(`/result/${lessonId}/exams/${examId}/result`);
   return res?.data;
 }
 export async function getExamResults(examId) {

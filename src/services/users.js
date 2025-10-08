@@ -1,4 +1,6 @@
 import apiClient from "../lib/apiClient";
+import { toast } from "react-toastify";
+
 //  ====================admin functions only===============//
 export async function getUsers(limit = 10, page = 1) {
   const res = await apiClient
@@ -33,6 +35,7 @@ export async function newUser(data) {
 export async function login(data) {
   const res = await apiClient.post("/users/login", data).catch((e) => {
     console.error(e);
+    toast.error("Login failed!");
   });
   return res?.data;
 }

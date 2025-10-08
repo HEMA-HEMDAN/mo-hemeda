@@ -7,12 +7,16 @@ import WhatsAppButton from "./components/rusable/WhatsAppButton.jsx";
 import NotFound from "./sections/NotFound.jsx";
 import Auth from "./sections/Auth.jsx";
 import Admin from "./sections/adminSections/Admin.jsx";
-import User from "./sections/User.jsx";
+import User from "./sections/userSections/User.jsx";
 import AdminUsers from "./sections/adminSections/AdminUsers.jsx";
 import AcademicYears from "./sections/adminSections/AcademicYears.jsx";
 import Lessons from "./sections/adminSections/Lessons.jsx";
 import Exams from "./sections/adminSections/Exams.jsx";
 import AdminResults from "./sections/adminSections/AdminResults.jsx";
+import UserAcademicYears from "./sections/userSections/UserAcademicYears.jsx";
+import UserLessons from "./sections/userSections/UserLessons.jsx";
+import UserExam from "./sections/userSections/UserExam.jsx";
+import Result from "./sections/userSections/Result.jsx";
 // ==================== Read this =========================//
 
 // we can save the whole response and we can make opration on it and take the token , role and data about
@@ -33,8 +37,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           // =================== the auth page =========================//
           <Route path="/auth" element={<Auth />} />
-          // ============== what the fuck is the use of this
-          ==================//
+          // ============== what the fuck is the use of this==================//
           {/* <Route path="/login" element={<Auth />} />
           <Route path="/register" element={<Auth />} /> */}
           // =================== the admin page =========================//
@@ -49,6 +52,13 @@ const App = () => {
           />
           // =================== the user page =========================//
           <Route path="/user" element={<User />} />
+          <Route
+            path="/academic-years/:yearId"
+            element={<UserAcademicYears />}
+          />
+          <Route path="/lessons/:lessonId" element={<UserLessons />} />
+          <Route path="/exams/:examId" element={<UserExam />} />
+          <Route path="/exams/:examId/result" element={<Result />} />
           // =================== the not found page =========================//
           <Route path="*" element={<NotFound />} />
         </Routes>

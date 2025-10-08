@@ -27,29 +27,29 @@ export default function Auth() {
   const handleLogin = async (data) => {
     try {
       const response = await login(data);
-      toast.success("Login successful!");
       const token = response?.data?.token || "";
       const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
+      if (response?.status === "ok") toast.success("Login successful!");
 
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Login failed!");
+      toast.error("Login failed!");
     }
   };
 
   const handleRegister = async (data) => {
     try {
       const response = await newUser(data);
-      toast.success("Register successful!");
       const token = response?.data?.token || "";
       const role = response?.data?.user?.role || "";
       persistAuth(token, role, response?.data?.user || []);
+      toast.success("Register successful!");
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Register failed!");
+      toast.error("Register failed!");
     }
   };
 

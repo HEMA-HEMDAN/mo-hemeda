@@ -9,6 +9,14 @@ const AdminUsers = () => {
   const [editingId, setEditingId] = useState(null);
   const [fields, setFields] = useState({});
   const [page, setPage] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    const admin = localStorage.getItem("role");
+    if (admin === "admin") {
+      setIsAdmin(true);
+    }
+  }, []);
+
   const navigate = useNavigate();
   const filteredUsers = Array.isArray(users)
     ? users.filter((u) => (u.role || "").toLowerCase() === "user")
@@ -89,6 +97,17 @@ const AdminUsers = () => {
       toast.success("User deleted successfully");
     }
   };
+  {
+    if (!isAdmin) {
+      return (
+        <section className=" h-screen flex items-center justify-center">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            You are not admin
+          </h1>
+        </section>
+      );
+    }
+  }
   return (
     <section className="min-h-screen w-full  my-20 overflow-hidden lg:flex lg:flex-col lg:items-center lg:justify-center">
       <button

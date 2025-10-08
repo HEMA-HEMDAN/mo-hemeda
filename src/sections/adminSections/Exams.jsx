@@ -160,7 +160,7 @@ const Exams = () => {
       questions: prev.questions.filter((_, i) => i !== index),
     }));
   };
-  console.log(lesson, exams);
+
   return (
     <div className="min-h-screen mt-20 p-4">
       <div className="max-w-7xl mx-auto">

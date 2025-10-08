@@ -7,6 +7,13 @@ const AdminResults = () => {
   const { examId } = useParams();
 
   const [results, setResults] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    const admin = localStorage.getItem("role");
+    if (admin === "admin") {
+      setIsAdmin(true);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -19,7 +26,17 @@ const AdminResults = () => {
     };
     fetchResults();
   }, [examId]);
-
+  {
+    if (!isAdmin) {
+      return (
+        <section className=" h-screen flex items-center justify-center">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            You are not admin
+          </h1>
+        </section>
+      );
+    }
+  }
   return (
     <section className="h-screen flex items-center justify-center">
       {results.length > 0 ? (

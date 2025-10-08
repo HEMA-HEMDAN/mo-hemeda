@@ -21,6 +21,13 @@ const Lessons = () => {
     description: "",
     youtubeLink: "",
   });
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    const admin = localStorage.getItem("role");
+    if (admin === "admin") {
+      setIsAdmin(true);
+    }
+  }, []);
 
   const loadLessons = useCallback(async () => {
     if (!academicYearId) return;
@@ -118,6 +125,17 @@ const Lessons = () => {
       return url;
     }
   };
+  {
+    if (!isAdmin) {
+      return (
+        <section className=" h-screen flex items-center justify-center">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            You are not admin
+          </h1>
+        </section>
+      );
+    }
+  }
 
   return (
     <div className="min-h-screen  p-4 mt-20">
