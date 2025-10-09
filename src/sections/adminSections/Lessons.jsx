@@ -8,6 +8,11 @@ import {
   deleteLesson,
 } from "../../services/lessons";
 import Loading from "../../components/rusable/Loading";
+import { MdDelete } from "react-icons/md";
+import { LuRefreshCw } from "react-icons/lu";
+import { MdEdit } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { FaTelegramPlane } from "react-icons/fa";
 const Lessons = () => {
   const { academicYearId } = useParams();
   const navigate = useNavigate();
@@ -146,14 +151,9 @@ const Lessons = () => {
       <div className="min-h-screen mt-8 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 mt-10 ">
           <div>
-            <button
-              onClick={() => navigate("/admin/academic-years")}
-              className="text-[#c5f10f] hover:text-white font-medium mb-2 flex items-center gap-2 transition-colors duration-300"
-            >
-              ← Back to Academic Years
-            </button>
+           
             <h1 className="text-3xl font-bold text-[#1b232e] dark:text-white ">
               Lessons Management
             </h1>
@@ -194,10 +194,10 @@ const Lessons = () => {
             {lessons.length === 0 ? (
               <div className="col-span-full text-center py-12">
                 <div className="text-6xl mb-4">📚</div>
-                <h3 className="text-xl font-semibold text-gray-300 mb-2">
+                <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
                   No lessons found
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   Start by adding your first lesson!
                 </p>
               </div>
@@ -205,7 +205,7 @@ const Lessons = () => {
               lessons.map((lesson) => (
                 <div
                   key={lesson._id || lesson.id}
-                  className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-[#c5f10f]/40"
+                  className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-[#c5f10f]/40"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -218,14 +218,14 @@ const Lessons = () => {
                           className="p-2 text-[#c5f10f] hover:bg-[#c5f10f]/20 rounded-lg transition-colors"
                           title="Edit lesson"
                         >
-                          🖊️
+                          <MdEdit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(lesson)}
                           className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
                           title="Delete lesson"
                         >
-                          🗑️
+                          <MdDelete className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -280,7 +280,17 @@ const Lessons = () => {
             <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-white mb-6">
-                  {editingLesson ? "✏️ Edit Lesson" : "➕ Add New Lesson"}
+                  {editingLesson ? (
+                    <>
+                      <MdEdit className="w-4 h-4 inline mr-1" />
+                      Edit Lesson
+                    </>
+                  ) : (
+                    <>
+                      <MdEdit className="w-4 h-4 inline mr-1" />
+                      Add New Lesson
+                    </>
+                  )}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

@@ -3,6 +3,7 @@ export const socialLinks = [
     name: "Facebook",
     href: "https://www.facebook.com/share/16ynkDKjvJ/",
     icon: "/footer/facebook.png",
+    
   },
   {
     name: "Instagram",

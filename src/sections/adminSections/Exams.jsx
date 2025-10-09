@@ -8,6 +8,12 @@ import {
   deleteExam,
 } from "../../services/lessons";
 import Loading from "../../components/rusable/Loading";
+import { MdDelete } from "react-icons/md";
+import { LuRefreshCw } from "react-icons/lu";
+import { MdEdit } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { FaTelegramPlane } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
 const Exams = () => {
   const { lessonId } = useParams();
   const navigate = useNavigate();
@@ -173,21 +179,7 @@ const Exams = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div>
             <div className="flex items-center gap-4 mb-2">
-              <button
-                onClick={() => navigate("/admin/academic-years")}
-                className="text-[#c5f10f] hover:text-white font-medium flex items-center gap-2 transition-colors duration-300"
-              >
-                ← Academic Years
-              </button>
-              <span className="text-gray-400">|</span>
-              <button
-                onClick={() =>
-                  navigate(`/admin/lessons/${lesson?.academicYearId?._id}`)
-                }
-                className="text-[#c5f10f] hover:text-white font-medium flex items-center gap-2 transition-colors duration-300"
-              >
-                ← Back to Lessons
-              </button>
+              
             </div>
             <h1 className="text-3xl font-bold text-[#1b232e] dark:text-white ">
               Exams Management
@@ -243,7 +235,7 @@ const Exams = () => {
               exams.map((exam) => (
                 <div
                   key={exam._id || exam.id}
-                  className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-[#c5f10f]/40"
+                  className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:border-[#c5f10f]/40"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -256,14 +248,14 @@ const Exams = () => {
                           className="p-2 text-[#c5f10f] hover:bg-[#c5f10f]/20 rounded-lg transition-colors"
                           title="Edit exam"
                         >
-                          🖊️
+                          <MdEdit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(exam)}
                           className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
                           title="Delete exam"
                         >
-                          🗑️
+                          <MdDelete className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -309,11 +301,21 @@ const Exams = () => {
 
         {/* Modal */}
         {modalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-white mb-6">
-                  {editingExam ? "✏️ Edit Exam" : "➕ Add New Exam"}
+                  {editingExam ? (
+                    <>
+                      <MdEdit className="w-4 h-4 inline mr-1" />
+                      Edit Exam
+                    </>
+                  ) : (
+                    <>
+                      <MdEdit className="w-4 h-4 inline mr-1" />
+                      Add New Exam
+                    </>
+                  )}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -396,7 +398,7 @@ const Exams = () => {
                         onClick={addQuestion}
                         className="bg-[#c5f10f]/20 text-[#c5f10f] px-4 py-2 rounded-lg hover:bg-[#c5f10f]/30 transition-colors text-sm font-medium"
                       >
-                        ➕ Add Question
+                        <IoMdAdd className="w-6 h-6 inline mr-1" /> Add Question
                       </button>
                     </div>
 
@@ -415,7 +417,7 @@ const Exams = () => {
                               onClick={() => removeQuestion(index)}
                               className="text-red-400 hover:text-red-300 text-sm"
                             >
-                              🗑️ Remove
+                              <MdDelete className="w-4 h-4" /> Remove
                             </button>
                           </div>
 

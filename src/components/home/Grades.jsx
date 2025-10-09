@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAcademicYears } from "../../services/academic-years";
-
+import { FaTelegramPlane } from "react-icons/fa";
 const Grades = () => {
   const scrollRef = useRef(null);
   const href = useRef(null);
@@ -16,7 +16,7 @@ const Grades = () => {
     <section className="my-30 w-full overflow-hidden">
       <div className="flex flex-col items-center justify-center gap-20 my-5 md:my-10">
         <h1
-          className="text-3xl md:text-5xl text-[#c5f10f] text-center font-bold"
+          className="text-3xl md:text-5xl text-[#1b232e] dark:text-white text-center font-bold"
           ref={href}
         >
           السنوات الدراسيه
@@ -56,7 +56,7 @@ const Grades = () => {
                     rel="noreferrer"
                   >
                     <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
-                    📱 Telegram 
+                     Telegram 
                     </h1>
                   </a>
                 ) : (

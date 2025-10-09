@@ -5,6 +5,13 @@ import {
   updateAcademicYear,
   deleteAcademicYear,
 } from "../../services/academic-years";
+import { MdDelete } from "react-icons/md";
+import { LuRefreshCw } from "react-icons/lu";
+import { MdEdit } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { FaTelegramPlane } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
+
 
 const AcademicYearsTable = ({ onSelectYear }) => {
   const [academicYears, setAcademicYears] = useState([]);
@@ -90,7 +97,12 @@ const AcademicYearsTable = ({ onSelectYear }) => {
             onClick={load}
             disabled={loading}
           >
-            {loading ? "Loading..." : "🔄 Refresh"}
+            {loading ? "Loading..." : (
+              <>
+                <LuRefreshCw className="w-4 h-4 inline mr-1" />
+                Refresh
+              </>
+            )}
           </button>
           <button
             className="w-full sm:w-auto bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-2 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
@@ -99,7 +111,7 @@ const AcademicYearsTable = ({ onSelectYear }) => {
               resetForm();
             }}
           >
-            ➕ Add New Year
+            <IoMdAdd className="w-6 h-6 inline mr-1" /> Add New Year
           </button>
         </div>
       </div>
@@ -108,7 +120,17 @@ const AcademicYearsTable = ({ onSelectYear }) => {
         <div className="mb-8">
           <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-2xl shadow-2xl p-6">
             <h3 className="text-xl font-semibold text-white mb-6">
-              {editing ? "✏️ Edit Academic Year" : "➕ Add New Academic Year"}
+              {editing ? (
+                <>
+                  <MdEdit className="w-4 h-4 inline mr-1" />
+                  Edit Academic Year
+                </>
+              ) : (
+                <>
+                  <MdEdit className="w-4 h-4 inline mr-1" />
+                  Add New Academic Year
+                </>
+              )}
             </h3>
             <form onSubmit={onSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -252,7 +274,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                           });
                         }}
                       >
-                        ✏️ Edit
+                        <>
+                          <MdEdit className="w-4 h-4 inline mr-1" />
+                          Edit
+                        </>
                       </button>
                       <button
                         type="button"
@@ -262,7 +287,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                           onDelete(u);
                         }}
                       >
-                        🗑️ Delete
+                        <>
+                          <MdDelete className="w-4 h-4 inline mr-1" />
+                          Delete
+                        </>
                       </button>
                     </div>
                   </div>

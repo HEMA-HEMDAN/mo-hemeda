@@ -3,6 +3,11 @@ import { getUsers, updateUser, deleteUser } from "../../services/users";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/rusable/Loading";
+import { MdDelete } from "react-icons/md";
+import { LuRefreshCw } from "react-icons/lu";
+import { MdEdit } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { FaTelegramPlane } from "react-icons/fa";
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -115,7 +120,7 @@ const AdminUsers = () => {
   return (
     <>
       <Loading />
-      <section className="min-h-screen w-full p-6">
+      <section className="min-h-screen w-full p-6 mt-20 " >
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() => navigate("/admin")}
@@ -124,10 +129,10 @@ const AdminUsers = () => {
           ← Back to Dashboard
         </button>
         <div className="mb-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#1b232e] dark:text-white mb-4">
             User Management
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className=" text-gray-600 dark:text-gray-300 text-lg">
             Manage student accounts and information
           </p>
         </div>
@@ -148,7 +153,17 @@ const AdminUsers = () => {
               onClick={load}
               disabled={loading}
             >
-              {loading ? "🔄 Loading..." : "🔄 Refresh"}
+              {loading ? (
+                <>
+                  <LuRefreshCw className="w-4 h-4 inline mr-1" />
+                  Loading...
+                </>
+              ) : (
+                <>
+                  <LuRefreshCw className="w-4 h-4 inline mr-1" />
+                  Refresh
+                </>
+              )}
             </button>
             <button
               className="bg-[#121821] text-[#c5f10f] border border-[#c5f10f]/30 text-sm lg:text-lg px-4 py-3 rounded-lg hover:bg-[#121821]/80 transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
@@ -336,13 +351,19 @@ const AdminUsers = () => {
                                 className="bg-[#c5f10f] text-[#1b232e] px-4 py-2 rounded-lg hover:bg-[#c5f10f]/90 transition-all duration-200 font-medium text-sm"
                                 onClick={() => onEdit(u)}
                               >
-                                ✏️ Edit
+                                <>
+                                  <MdEdit className="w-4 h-4 inline mr-1" />
+                                  Edit
+                                </>
                               </button>
                               <button
                                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-200 font-medium text-sm"
                                 onClick={() => onDelete(uid)}
                               >
-                                🗑️ Delete
+                                <>
+                                  <MdDelete className="w-4 h-4 inline mr-1" />
+                                  Delete
+                                </>
                               </button>
                             </div>
                           )}
@@ -389,13 +410,13 @@ const AdminUsers = () => {
                             className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-2 rounded-lg hover:from-yellow-600 hover:to-orange-600 transition-all duration-200"
                             onClick={() => onEdit(u)}
                           >
-                            ✏️
+                            <MdEdit className="w-4 h-4" />
                           </button>
                           <button
                             className="bg-gradient-to-r from-red-500 to-pink-600 text-white p-2 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all duration-200"
                             onClick={() => onDelete(uid)}
                           >
-                            🗑️
+                            <MdDelete className="w-4 h-4" />
                           </button>
                         </div>
                       )}

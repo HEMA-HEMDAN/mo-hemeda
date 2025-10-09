@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AcademicYearsTable from "../../components/admin/academicyearcard";
 import Loading from "../../components/rusable/Loading";
+
 const AcademicYears = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -36,12 +37,7 @@ const AcademicYears = () => {
       <Loading />
       <section className="min-h-screen  p-6">
       <div className="max-w-7xl mx-auto">
-        <button
-          onClick={() => navigate("/admin")}
-          className="text-[#c5f10f] hover:text-white font-medium mb-6 flex items-center gap-2 transition-colors duration-300"
-        >
-          ← Back to Dashboard
-        </button>
+        
         <AcademicYearsTable onSelectYear={handleYearClick} />
       </div>
     </section>

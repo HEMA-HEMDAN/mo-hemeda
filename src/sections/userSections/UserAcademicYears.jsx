@@ -13,20 +13,6 @@ const UserAcademicYears = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getEmbedUrl = (url) => {
-    if (!url) return "";
-    try {
-      const parsed = new URL(url);
-      const videoId = parsed.searchParams.get("v");
-      if (videoId) return `https://www.youtube.com/embed/${videoId}`;
-      if (parsed.hostname === "youtu.be") {
-        return `https://www.youtube.com/embed/${parsed.pathname.slice(1)}`;
-      }
-      if (url.includes("/embed/")) return url;
-    } catch {
-      return url;
-    }
-  };
 
   const loadLessons = useCallback(async () => {
     if (!yearId) return;
@@ -53,12 +39,7 @@ const UserAcademicYears = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div>
-            <button
-              onClick={() => navigate(-1)}
-              className="text-[#c5f10f] hover:text-[#c5f10f]/60 font-medium mb-2 flex items-center gap-2 transition-colors"
-            >
-              ← Back
-            </button>
+            
             <h1 className="text-3xl font-bold text-[#1b232e] dark:text-white  ">
               Lessons
             </h1>
@@ -99,7 +80,7 @@ const UserAcademicYears = () => {
               lessons.map((lesson) => (
                 <div
                   key={lesson._id || lesson.id}
-                  className="bg-[#1b232e]/80 backdrop-blur rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-[#c5f10f]/20 overflow-hidden flex flex-col"
+                  className="bg-gray-900 backdrop-blur rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-[#c5f10f]/20 overflow-hidden flex flex-col"
                 >
                   
                   <div className="p-6 flex-1 flex flex-col">

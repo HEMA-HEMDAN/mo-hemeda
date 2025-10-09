@@ -43,19 +43,19 @@ const AdminResults = () => {
   return (
     <>
       <Loading />
-      <section className="min-h-screen bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
+      <section className="min-h-screen mt-20 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#1b232e] dark:text-white mb-4">
             Exam Results
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             View student performance and scores
           </p>
         </div>
 
         {results.length > 0 ? (
-          <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="  bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 rounded-2xl shadow-2xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-[#c5f10f]/20">
                 <thead className="bg-[#121821]">
