@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 // import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { login, newUser } from "../services/users";
 import { persistAuth } from "../utils/cookies";
 import { toast } from "react-toastify";
+import Loading from "../components/rusable/Loading";
 
 export default function Auth() {
   // the logic is just fine but the design can be better
@@ -12,7 +13,9 @@ export default function Auth() {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  useEffect(() => {
+    document.title = "Auth";
+  }, []);
   React.useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab === "register" || tab === "login") setMode(tab);
@@ -59,15 +62,17 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen  px-4 sm:px-6 md:px-8">
-      <div className="bg-white dark:bg-[#1b232e] border border-black/5 dark:border-white/10 p-6 sm:p-8 rounded-lg shadow-md w-full max-w-lg sm:max-w-xl md:max-w-2xl">
+    <>
+      <Loading />
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 md:px-8">
+      <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         <div className="flex mb-6">
           <button
             onClick={() => setMode("login")}
             className={`flex-1 py-2 font-semibold border-b-2 transition-colors ${
               mode === "login"
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-gray-500"
+                ? "border-[#c5f10f] text-[#c5f10f]"
+                : "border-transparent text-gray-400"
             }`}
             aria-pressed={mode === "login"}
           >
@@ -77,8 +82,8 @@ export default function Auth() {
             onClick={() => setMode("register")}
             className={`flex-1 py-2 font-semibold border-b-2 transition-colors ${
               mode === "register"
-                ? "border-green-500 text-green-600"
-                : "border-transparent text-gray-500"
+                ? "border-[#c5f10f] text-[#c5f10f]"
+                : "border-transparent text-gray-400"
             }`}
             aria-pressed={mode === "register"}
           >
@@ -90,7 +95,7 @@ export default function Auth() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                  <label className="block mb-1 font-medium text-white/90">
                     First Name
                   </label>
                   <input
@@ -98,7 +103,7 @@ export default function Auth() {
                     {...register("firstName", {
                       required: mode === "register" && "First name is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] bg-[#121821] text-white border-white/10"
                   />
                   {errors.firstName && (
                     <p className="text-red-500 text-sm">
@@ -107,7 +112,7 @@ export default function Auth() {
                   )}
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                  <label className="block mb-1 font-medium text-white/90">
                     Last Name
                   </label>
                   <input
@@ -115,7 +120,7 @@ export default function Auth() {
                     {...register("lastName", {
                       required: mode === "register" && "Last name is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] bg-[#121821] text-white border-white/10"
                   />
                   {errors.lastName && (
                     <p className="text-red-500 text-sm">
@@ -127,7 +132,7 @@ export default function Auth() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                  <label className="block mb-1 font-medium text-white/90">
                     Phone Number
                   </label>
                   <input
@@ -135,7 +140,7 @@ export default function Auth() {
                     {...register("phoneNumber", {
                       required: mode === "register" && "Phone is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] bg-[#121821] text-white border-white/10"
                   />
                   {errors.phoneNumber && (
                     <p className="text-red-500 text-sm">
@@ -144,7 +149,7 @@ export default function Auth() {
                   )}
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+                  <label className="block mb-1 font-medium text-white/90">
                     Parent Phone Number
                   </label>
                   <input
@@ -153,7 +158,7 @@ export default function Auth() {
                       required:
                         mode === "register" && "Parent phone is required",
                     })}
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
+                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] bg-[#121821] text-white border-white/10"
                   />
                   {errors.parentPhoneNumber && (
                     <p className="text-red-500 text-sm">
@@ -166,13 +171,13 @@ export default function Auth() {
           )}
 
           <div>
-            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+            <label className="block mb-1 font-medium text-white/90">
               Email
             </label>
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] dark:bg-[#121821] dark:text-white dark:border-white/10"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] bg-[#121821] text-white border-white/10"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -180,19 +185,19 @@ export default function Auth() {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-800 dark:text-white/80">
+            <label className="block mb-1 font-medium text-white/90">
               Password
             </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", { required: "Password is required" })}
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] pr-10 dark:bg-[#121821] dark:text-white dark:border-white/10"
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#c5f10f] pr-10 bg-[#121821] text-white border-white/10"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 dark:text-white/70"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/70 hover:text-white"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? "⌣" : "👁"}
@@ -205,21 +210,17 @@ export default function Auth() {
 
           <button
             type="submit"
-            className={`w-full text-white py-2 px-4 rounded transition active:scale-95 ${
-              mode === "login"
-                ? "bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
-                : "bg-green-500 hover:bg-green-600 active:bg-green-700"
-            }`}
+            className={`w-full text-[#1b232e] py-3 px-4 rounded-lg transition active:scale-95 bg-gradient-to-r from-[#c5f10f] to-[#a8d708] hover:from-[#a8d708] hover:to-[#c5f10f] font-semibold shadow-lg`}
           >
             {mode === "login" ? "Login" : "Register"}
           </button>
 
           {mode === "login" ? (
-            <div className="text-center text-sm text-gray-600 dark:text-white/80">
+            <div className="text-center text-sm text-white/80">
               <span>Don\'t have an account? </span>
               <button
                 type="button"
-                className="text-blue-600 hover:underline font-semibold"
+                className="text-[#c5f10f] hover:underline font-semibold"
                 onClick={() => {
                   setMode("register");
                   navigate("/auth?tab=register");
@@ -229,11 +230,11 @@ export default function Auth() {
               </button>
             </div>
           ) : (
-            <div className="text-center text-sm text-gray-600 dark:text-white/80">
+            <div className="text-center text-sm text-white/80">
               <span>Already have an account? </span>
               <button
                 type="button"
-                className="text-blue-600 hover:underline font-semibold"
+                className="text-[#c5f10f] hover:underline font-semibold"
                 onClick={() => {
                   setMode("login");
                   navigate("/auth?tab=login");
@@ -246,5 +247,6 @@ export default function Auth() {
         </form>
       </div>
     </div>
+    </>
   );
 }

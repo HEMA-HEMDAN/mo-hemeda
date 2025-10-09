@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { getUsers, updateUser, deleteUser } from "../../services/users";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/rusable/Loading";
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -10,6 +11,9 @@ const AdminUsers = () => {
   const [fields, setFields] = useState({});
   const [page, setPage] = useState(1);
   const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    document.title = "Admin Users";
+  }, []);
   useEffect(() => {
     const admin = localStorage.getItem("role");
     if (admin === "admin") {
@@ -109,7 +113,9 @@ const AdminUsers = () => {
     }
   }
   return (
-    <section className="min-h-screen w-full bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
+    <>
+      <Loading />
+      <section className="min-h-screen w-full p-6">
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() => navigate("/admin")}
@@ -522,6 +528,7 @@ const AdminUsers = () => {
       </div>
       </div>
     </section>
+    </>
   );
 };
 

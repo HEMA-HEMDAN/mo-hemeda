@@ -2,10 +2,13 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getResult } from "../../services/rusult";
 import { getLessonById } from "../../services/lessons";
-
+import Loading from "../../components/rusable/Loading";
 const Result = () => {
   // there some work to do here you should refactor the maped object to match the responde and use the date of the exam to get the date of the result
   // and the time of the exam to get the time of the result and use that to make conditions for showing the result
+  useEffect(() => {
+    document.title = "Result";
+  }, []);
   const { examId } = useParams();
   const location = useLocation();
   const lessonId = location?.state?.lessonId || null;
@@ -55,7 +58,7 @@ const Result = () => {
   if (loading) {
     return (
       <section className="min-h-screen mt-20 p-4 flex items-center justify-center">
-        <p className="text-gray-600 text-lg">Loading result...</p>
+        <p className="text-gray-300 text-lg">Loading result...</p>
       </section>
     );
   }
@@ -63,20 +66,22 @@ const Result = () => {
   if (error) {
     return (
       <section className="min-h-screen mt-20 p-4 flex items-center justify-center">
-        <p className="text-red-600 text-lg">{error}</p>
+        <p className="text-red-400 text-lg">{error}</p>
       </section>
     );
   }
 
   return (
-    <div className="min-h-screen mt-20 p-4">
+    <>
+      <Loading />
+      <div className="min-h-screen mt-20 p-4">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-bold text-white">
             Exam Result
           </h1>
-          <div className="text-gray-600 mt-2 text-sm">
-            Score: <span className="font-semibold">{result?.score ?? 0}</span>
+          <div className="text-gray-300 mt-2 text-sm">
+            Score: <span className="font-semibold text-[#c5f10f]">{result?.score ?? 0}</span>
           </div>
         </div>
 
@@ -91,12 +96,12 @@ const Result = () => {
               return (
                 <div
                   key={qId}
-                  className="bg-white rounded-xl shadow border border-gray-100 p-4"
+                  className="bg-[#1b232e]/80 backdrop-blur rounded-xl shadow border border-[#c5f10f]/20 p-4"
                 >
-                  <div className="font-medium text-gray-900 mb-3">
+                  <div className="font-medium text-white mb-3">
                     Q{index + 1}. {q.questionText}
                   </div>
-                  <div className="text-sm text-gray-700">
+                  <div className="text-sm text-gray-300">
                     <div className="mb-1">
                       Your answer:{" "}
                       <span className="font-semibold">
@@ -114,7 +119,7 @@ const Result = () => {
                       )}
                     <div
                       className={`mt-2 font-semibold ${
-                        isCorrect ? "text-green-600" : "text-red-600"
+                        isCorrect ? "text-green-400" : "text-red-400"
                       }`}
                     >
                       {isCorrect ? "Correct" : "Incorrect"}
@@ -129,6 +134,7 @@ const Result = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

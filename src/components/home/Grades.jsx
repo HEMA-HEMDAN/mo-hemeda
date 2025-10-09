@@ -49,22 +49,26 @@ const Grades = () => {
                     <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
                       دروس {year.title}
                     </h1>
-                  </div>
-                </div>
-              </Link>
-              <p className="text-center text-sm md:text-lg bg-gray-100 dark:bg-gray-900 py-2 px-4 rounded-md">
-                {year.telegramChannel ? (
+                    {year.telegramChannel ? (
                   <a
                     href={year.telegramChannel}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <span className="text-green-500">Telegram</span>
+                    <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
+                    📱 Telegram 
+                    </h1>
                   </a>
                 ) : (
-                  <span className="text-green-500">Telegram</span>
+                  <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
+                       Telegram not available " 
+                    </h1>
                 )}
-              </p>
+                   
+                  </div>
+                </div>
+              </Link>
+              
             </div>
           ))}
         </div>

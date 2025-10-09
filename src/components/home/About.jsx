@@ -15,9 +15,7 @@ const About = () => {
 
           <h2 className="text-center text-white text-2xl md:text-3xl font-extrabold tracking-wide mb-4">About Us</h2>
           <p className="text-center text-gray-300/90 max-w-3xl mx-auto leading-7">
-            Over Dose Math helps students master mathematics with interactive lessons,
-            structured practice, and clear explanations. We combine modern design
-            with effective pedagogy so learners stay engaged and make consistent progress.
+          أوفر دوز ماث بتساعد الطلبة يتقنوا الرياضيات من خلال دروس تفاعلية، وتمارين منظمة، وشرح بسيط وواضح. إحنا بنجمع بين التصميم العصري وطريقة التدريس الفعّالة علشان الطلبة يفضلوا متحمسين ويتقدموا خطوة بخطوة.
           </p>
         </div>
       </div>

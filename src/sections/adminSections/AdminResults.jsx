@@ -2,12 +2,15 @@ import React from "react";
 import { getExamResults } from "../../services/rusult";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import Loading from "../../components/rusable/Loading";
 const AdminResults = () => {
   const { examId } = useParams();
 
   const [results, setResults] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    document.title = "Admin Results";
+  }, []);
   useEffect(() => {
     const admin = localStorage.getItem("role");
     if (admin === "admin") {
@@ -38,7 +41,9 @@ const AdminResults = () => {
     }
   }
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
+    <>
+      <Loading />
+      <section className="min-h-screen bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -105,6 +110,7 @@ const AdminResults = () => {
         )}
       </div>
     </section>
+    </>
   );
 };
 

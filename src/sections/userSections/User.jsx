@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getUserResults } from "../../services/rusult";
-
+import Loading from "../../components/rusable/Loading";
 const User = () => {
   // this one is hell of work you need to do almost the same as the result file so good luck
+  useEffect(() => {
+    document.title = "User";
+  }, []);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -55,7 +58,9 @@ const User = () => {
   }
 
   return (
-    <div className="min-h-screen mt-20 p-4">
+    <>
+      <Loading />
+      <div className="min-h-screen mt-20 p-4">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
           My Results
@@ -213,6 +218,7 @@ const User = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

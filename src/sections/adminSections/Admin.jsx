@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import DashboardCard from "../../components/admin/DashboardCard";
 import { useState } from "react";
+import Loading from "../../components/rusable/Loading";
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    document.title = "Admin";
+  }, []);
   useEffect(() => {
     const admin = localStorage.getItem("role");
     if (admin === "admin") {
@@ -21,18 +25,20 @@ const Admin = () => {
     }
   }
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f141b] to-[#1b232e] p-6">
+    <>
+      <Loading />
+      <section className="min-h-screen flex items-center justify-center  p-6">
       <div className="w-full max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1b232e] dark:text-white mb-4">
             Admin Dashboard
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Manage your educational platform
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
           <DashboardCard
             title="Users"
             description="Manage student accounts"
@@ -47,16 +53,11 @@ const Admin = () => {
             url="/admin/academic-years"
             color="secondary"
           />
-          <DashboardCard
-            title="Lessons"
-            description="Organize course content"
-            icon="📖"
-            url="/admin/lessons"
-            color="accent"
-          />
+          
         </div>
       </div>
     </section>
+    </>
   );
 };
 

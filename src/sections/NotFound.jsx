@@ -1,8 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import {useEffect} from "react";
+import Loading from "../components/rusable/Loading";
 const NotFound = () => {
+
+  useEffect(() => {
+    document.title = "Not Found";
+  }, []);
+
   return (
+    <>
+      <Loading />
     <div className='flex flex-col items-center justify-center gap-10 h-[100vh]'>
       <h1 className='text-center text-3xl text-black dark:text-white'>Page Not Found</h1>
       <h2 className='text-center text-3xl text-black dark:text-white'>404</h2>
@@ -11,6 +19,7 @@ const NotFound = () => {
       </Link>
 
     </div>
+    </>
   )
 }
 

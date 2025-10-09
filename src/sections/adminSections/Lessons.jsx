@@ -7,7 +7,7 @@ import {
   updateLesson,
   deleteLesson,
 } from "../../services/lessons";
-
+import Loading from "../../components/rusable/Loading";
 const Lessons = () => {
   const { academicYearId } = useParams();
   const navigate = useNavigate();
@@ -22,6 +22,9 @@ const Lessons = () => {
     youtubeLink: "",
   });
   const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    document.title = "Lessons";
+  }, []);
   useEffect(() => {
     const admin = localStorage.getItem("role");
     if (admin === "admin") {
@@ -138,7 +141,9 @@ const Lessons = () => {
   }
 
   return (
-    <div className="min-h-screen mt-8 p-6">
+    <>
+      <Loading />
+      <div className="min-h-screen mt-8 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
@@ -149,10 +154,10 @@ const Lessons = () => {
             >
               ← Back to Academic Years
             </button>
-            <h1 className="text-3xl font-bold text-white bg-gradient-to-r from-[#c5f10f] to-white bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold text-[#1b232e] dark:text-white ">
               Lessons Management
             </h1>
-            <p className="text-gray-300 mt-2">
+            <p className="text-gray-600 dark:text-gray-300 mt-2">
               Manage lessons for this academic year
             </p>
           </div>
@@ -160,7 +165,7 @@ const Lessons = () => {
             onClick={handleAddNew}
             className="bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-3 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl flex items-center gap-2"
           >
-            ➕ Add New Lesson
+            <span className="text-3xl">+</span> Add New Lesson
           </button>
         </div>
 
@@ -350,6 +355,7 @@ const Lessons = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
