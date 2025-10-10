@@ -138,7 +138,7 @@ const UserLessons = () => {
                 return (
                   <div
                     key={exam._id || exam.id}
-                    className="bg-[#1b232e]/80 backdrop-blur rounded-xl shadow border border-[#c5f10f]/20 p-5 flex flex-col gap-3"
+                    className="bg-[#1b232e] backdrop-blur rounded-xl shadow border border-[#c5f10f]/20 p-5 flex flex-col gap-3"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>

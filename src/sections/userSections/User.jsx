@@ -50,29 +50,29 @@ const User = () => {
       <Loading />
       <div className="min-h-screen mt-20 p-4">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
             My Results
           </h1>
 
           {results.length === 0 ? (
-            <p className="text-gray-600">You have no results yet.</p>
+            <p className="text-gray-600 dark:text-gray-300">You have no results yet.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {results.map((r) => (
                 <div
                   key={r._id || `${r.examId}-${r.userId}`}
-                  className="bg-white rounded-xl shadow border border-gray-100 p-5 flex flex-col gap-2"
+                  className=" bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 p-5 flex flex-col gap-2"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-gray-900 dark:text-white">
                       {r.exam?.title}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
                       Score:{" "}
                       <span className="font-semibold">{r.score ?? 0}</span>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600">{r.exam?.subject}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{r.exam?.subject}</div>
                 </div>
               ))}
             </div>
