@@ -64,8 +64,8 @@ export default function Auth() {
   return (
     <>
       <Loading />
-    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 md:px-8">
-      <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 md:px-8 mt-10">
+      <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         <div className="flex mb-6">
           <button
             onClick={() => setMode("login")}

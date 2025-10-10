@@ -319,10 +319,7 @@ const UserExam = () => {
           </p>
           {lockInfo && (
             <div className="bg-[#121821] border border-[#c5f10f]/30 p-4 rounded-lg mb-4">
-              <div className="text-sm text-white/70">الدرجة المحققة</div>
-              <div className="text-2xl font-bold text-[#c5f10f]">
-                {lockInfo.score} / {lockInfo.totalQuestions}
-              </div>
+              
               <div className="text-xs text-white/60 mt-1">
                 تم الإرسال في:{" "}
                 {new Date(lockInfo.submittedAt).toLocaleDateString("ar-SA")}
@@ -345,7 +342,7 @@ const UserExam = () => {
   return (
     <div className="min-h-screen p-4 font-sans mt-20">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-6 rounded-xl shadow-lg mb-6">
+        <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-6 rounded-xl shadow-lg mb-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-[#c5f10f] to-[#a8d90a] bg-clip-text text-transparent">
               {exam.title || "Exam"}
@@ -400,7 +397,7 @@ const UserExam = () => {
           </div>
         </div>
         {/* Current Question */}
-        <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-6 rounded-xl shadow-lg mb-6">
+        <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-6 rounded-xl shadow-lg mb-6">
           {currentQuestionData && (
             <>
               {currentQuestionData.image && (
@@ -413,14 +410,14 @@ const UserExam = () => {
                 </div>
               )}
               <h2 className="text-xl font-semibold text-white mb-6 text-right">
-                السؤال {currentQuestion}: {currentQuestionData.questionText}
+                {currentQuestionData.questionText} : السؤال {currentQuestion}
               </h2>
               {/* Options */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Debug info */}
                 <div className="col-span-2 text-xs text-[#c5f10f]/70 mb-2">
-                  Question Type: {currentQuestionData.type} | Has Options:{" "}
-                  {currentQuestionData.options ? "Yes" : "No"}
+                  Question Type: {currentQuestionData.type} 
+                  
                 </div>
                 {currentQuestionData.type === "mcq" &&
                   (currentQuestionData.options || []).map((option, idx) => {
@@ -523,7 +520,7 @@ const UserExam = () => {
           )}
         </div>
         {/* Navigation Buttons */}
-        <div className="flex justify-between items-center bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl shadow-lg">
+        <div className="flex justify-between items-center bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl shadow-lg">
           <button
             onClick={prevQuestion}
             disabled={currentQuestion === 1}
@@ -536,7 +533,7 @@ const UserExam = () => {
             السابق
           </button>
           <div className="text-sm text-[#c5f10f] font-medium">
-            {currentQuestion} من {totalQuestions}
+            {currentQuestion} of {totalQuestions}
           </div>
           {currentQuestion === totalQuestions ? (
             <button

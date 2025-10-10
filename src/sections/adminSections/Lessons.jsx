@@ -276,7 +276,7 @@ const Lessons = () => {
 
         {/* Modal */}
         {modalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-[#1b232e]/95 backdrop-blur border border-[#c5f10f]/20 rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-white mb-6">

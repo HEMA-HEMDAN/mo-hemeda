@@ -35,7 +35,7 @@ const AcademicYears = () => {
   return (
     <>
       <Loading />
-      <section className="min-h-screen  p-6">
+      <section className="min-h-screen  p-6 mt-5">
       <div className="max-w-7xl mx-auto">
         
         <AcademicYearsTable onSelectYear={handleYearClick} />
