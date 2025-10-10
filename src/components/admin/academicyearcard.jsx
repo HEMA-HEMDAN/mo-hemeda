@@ -4,6 +4,7 @@ import {
   createAcademicYear,
   updateAcademicYear,
   deleteAcademicYear,
+  postAcademicYearImage,
 } from "../../services/academic-years";
 import { MdDelete } from "react-icons/md";
 import { LuRefreshCw } from "react-icons/lu";
@@ -11,7 +12,6 @@ import { MdEdit } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { FaTelegramPlane } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-
 
 const AcademicYearsTable = ({ onSelectYear }) => {
   const [academicYears, setAcademicYears] = useState([]);
@@ -50,19 +50,38 @@ const AcademicYearsTable = ({ onSelectYear }) => {
     telegramChannel: "",
     image: "",
   });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const resetForm = () => {
     setForm({ title: "", telegramChannel: "", image: "" });
+    setSelectedFile(null);
     setEditing(null);
+    if (fileRef.current) {
+      fileRef.current.value = "";
+    }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
+      let imageUrl = form.image;
+
+      // If a file is selected, upload it first
+      if (selectedFile) {
+        const imageResponse = await postAcademicYearImage(selectedFile);
+        console.log("Image upload response:", imageResponse);
+        imageUrl = imageResponse?.data?.url || imageResponse?.data?.display_url;
+      }
+
+      const formData = {
+        ...form,
+        image: imageUrl,
+      };
+
       if (editing) {
-        await updateAcademicYear(editing._id || editing.id, form);
+        await updateAcademicYear(editing._id || editing.id, formData);
       } else {
-        await createAcademicYear(form);
+        await createAcademicYear(formData);
       }
       await load();
       setFormOpen(false);
@@ -84,20 +103,29 @@ const AcademicYearsTable = ({ onSelectYear }) => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    // Clear the image URL when a new file is selected
+    setForm((prev) => ({ ...prev, image: "" }));
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6">
       <div className="flex flex-col items-center justify-center gap-20 my-5 md:my-10">
         <h1 className="text-3xl md:text-5xl text-[#c5f10f] text-center font-bold">
           Academic Years
         </h1>
-        
+
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
             className="w-full sm:w-auto bg-[#121821] text-[#c5f10f] border border-[#c5f10f]/30 px-4 py-2 rounded-lg hover:bg-[#121821]/80 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             onClick={load}
             disabled={loading}
           >
-            {loading ? "Loading..." : (
+            {loading ? (
+              "Loading..."
+            ) : (
               <>
                 <LuRefreshCw className="w-4 h-4 inline mr-1" />
                 Refresh
@@ -166,17 +194,20 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-gray-300">
-                    Image URL
+                    Image File
                   </label>
                   <input
                     ref={fileRef}
-                    value={form.image}
-                    placeholder="Enter image URL"
-                    className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200"
-                    onChange={(e) =>
-                      setForm((p) => ({ ...p, image: e.target.value }))
-                    }
+                    type="file"
+                    accept="image/*"
+                    className="w-full border border-[#c5f10f]/30 bg-[#121821] text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#c5f10f] focus:border-[#c5f10f] transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#c5f10f] file:text-[#1b232e] hover:file:bg-[#a8d708]"
+                    onChange={handleFileChange}
                   />
+                  {selectedFile && (
+                    <p className="text-sm text-gray-400 mt-1">
+                      Selected: {selectedFile.name}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-[#c5f10f]/20">
@@ -231,7 +262,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                 key={uid}
                 className="flex flex-col items-center justify-center"
               >
-                <div className="flex flex-col mb-10 cursor-pointer" onClick={() => onSelectYear && onSelectYear(u)}>
+                <div
+                  className="flex flex-col mb-10 cursor-pointer"
+                  onClick={() => onSelectYear && onSelectYear(u)}
+                >
                   <div className="group rounded-xl overflow-hidden w-[300px] lg:w-[400px] md:w-[550px] h-[200px] lg:h-[250px] md:h-[300px]">
                     {u.image ? (
                       <img
@@ -255,9 +289,11 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                     </h1>
                     <div className="w-full h-1 bg-[#c5f10f] my-2"></div>
                     <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
-                      {u.telegramChannel ? "📱 Telegram Available" : "📚 Academic Year"}
+                      {u.telegramChannel
+                        ? "📱 Telegram Available"
+                        : "📚 Academic Year"}
                     </h1>
-                    
+
                     {/* Admin Action Buttons */}
                     <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-300 dark:border-gray-600">
                       <button
@@ -272,6 +308,10 @@ const AcademicYearsTable = ({ onSelectYear }) => {
                             telegramChannel: u.telegramChannel || "",
                             image: u.image || "",
                           });
+                          setSelectedFile(null);
+                          if (fileRef.current) {
+                            fileRef.current.value = "";
+                          }
                         }}
                       >
                         <>

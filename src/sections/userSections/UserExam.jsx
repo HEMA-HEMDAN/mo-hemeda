@@ -31,29 +31,29 @@ const UserExam = () => {
 
   useEffect(() => {
     document.title = "Exam";
-    
+
     // Check if exam is locked (already submitted)
     const examLockStatus = localStorage.getItem(`exam_locked_${examId}`);
     if (examLockStatus) {
       setExamLocked(true);
       return;
     }
-    
+
     // Load exam timer data from localStorage
     const savedTimerData = localStorage.getItem(`exam_timer_${examId}`);
     if (savedTimerData) {
       const { startTime, duration } = JSON.parse(savedTimerData);
       setExamStartTime(startTime);
       setExamDuration(duration);
-      
+
       // Calculate time spent and remaining
       const now = Date.now();
       const elapsed = Math.floor((now - startTime) / 1000);
       const remaining = Math.max(0, duration - elapsed);
-      
+
       setTimeSpent(elapsed);
       setTimeRemaining(remaining);
-      
+
       // If time is up, auto-submit
       if (remaining <= 0) {
         handleSubmit();
@@ -63,14 +63,17 @@ const UserExam = () => {
       const startTime = Date.now();
       setExamStartTime(startTime);
       setTimeRemaining(examDuration);
-      
+
       // Save to localStorage
-      localStorage.setItem(`exam_timer_${examId}`, JSON.stringify({
-        startTime,
-        duration: examDuration
-      }));
+      localStorage.setItem(
+        `exam_timer_${examId}`,
+        JSON.stringify({
+          startTime,
+          duration: examDuration,
+        })
+      );
     }
-    
+
     // Cleanup function to remove timer when component unmounts
     return () => {
       // Cleanup function - timer will be removed when exam is submitted
@@ -114,22 +117,25 @@ const UserExam = () => {
         const now = Date.now();
         const elapsed = Math.floor((now - examStartTime) / 1000);
         const remaining = Math.max(0, examDuration - elapsed);
-        
+
         setTimeSpent(elapsed);
         setTimeRemaining(remaining);
-        
+
         // Update localStorage
-        localStorage.setItem(`exam_timer_${examId}`, JSON.stringify({
-          startTime: examStartTime,
-          duration: examDuration
-        }));
-        
+        localStorage.setItem(
+          `exam_timer_${examId}`,
+          JSON.stringify({
+            startTime: examStartTime,
+            duration: examDuration,
+          })
+        );
+
         // Show warning when 5 minutes left
         if (remaining <= 300 && !timeWarningShown) {
-          alert('تحذير: متبقي 5 دقائق فقط على انتهاء الامتحان!');
+          alert("تحذير: متبقي 5 دقائق فقط على انتهاء الامتحان!");
           setTimeWarningShown(true);
         }
-        
+
         // Auto-submit when time is up
         if (remaining <= 0) {
           handleSubmit();
@@ -154,10 +160,7 @@ const UserExam = () => {
   }, []);
 
   const goToQuestion = (questionNumber) => {
-    if (
-      questionNumber >= 1 &&
-      questionNumber <= totalQuestions
-    ) {
+    if (questionNumber >= 1 && questionNumber <= totalQuestions) {
       setCurrentQuestion(questionNumber);
     }
   };
@@ -181,16 +184,20 @@ const UserExam = () => {
       .toString()
       .padStart(2, "0")}`;
   };
-  
+
   const formatTimeRemaining = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    
+
     if (hours > 0) {
-      return `${hours}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      return `${hours}:${mins.toString().padStart(2, "0")}:${secs
+        .toString()
+        .padStart(2, "0")}`;
     }
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   // SUBMIT: Use UserExam api logic, but on this UI
@@ -212,7 +219,7 @@ const UserExam = () => {
     setError("");
     try {
       const payload = {
-        answers: questions.map((q, idx) => ({
+        answers: questions.map((q) => ({
           questionId: q._id || q.id,
           answer: userAnswers[q._id || q.id] ?? "",
         })),
@@ -226,28 +233,26 @@ const UserExam = () => {
         if (q.type === "mcq" && q.answer) {
           if (userAns === q.answer) calculatedScore++;
         }
-        if (q.type === "boolean" && (q.answer === "true" || q.answer === "false")) {
+        if (
+          q.type === "boolean" &&
+          (q.answer === "true" || q.answer === "false")
+        ) {
           if (userAns === q.answer) calculatedScore++;
         }
         // Otherwise, skip auto-grade
       });
       // Navigate to result page instead of showing results inline
-      navigate(`/exams/${examId}/result`, { 
-        state: { 
-          examId, 
-          lessonId,
-          score: calculatedScore,
-          totalQuestions: totalQuestions
-        } 
-      });
-      
+      navigate(`/`);
       // Lock the exam after submission
-      localStorage.setItem(`exam_locked_${examId}`, JSON.stringify({
-        submittedAt: new Date().toISOString(),
-        score: calculatedScore,
-        totalQuestions: totalQuestions
-      }));
-      
+      localStorage.setItem(
+        `exam_locked_${examId}`,
+        JSON.stringify({
+          submittedAt: new Date().toISOString(),
+          score: calculatedScore,
+          totalQuestions: totalQuestions,
+        })
+      );
+
       // Clear timer from localStorage when exam is submitted
       localStorage.removeItem(`exam_timer_${examId}`);
 
@@ -255,11 +260,11 @@ const UserExam = () => {
       // navigate(`/exams/${examId}/result`, { state: { examId, lessonId } });
     } catch (e) {
       setError("Failed to submit exam");
+      console.error(e);
     } finally {
       setSubmitting(false);
     }
   };
-
 
   if (loading) {
     return (
@@ -296,12 +301,12 @@ const UserExam = () => {
       </section>
     );
   }
-  
+
   // Check if exam is locked (already submitted)
   if (examLocked) {
     const lockData = localStorage.getItem(`exam_locked_${examId}`);
     const lockInfo = lockData ? JSON.parse(lockData) : null;
-    
+
     return (
       <section className="min-h-screen mt-20 p-4 flex items-center justify-center ">
         <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-8 rounded-xl max-w-md mx-auto text-center">
@@ -319,7 +324,8 @@ const UserExam = () => {
                 {lockInfo.score} / {lockInfo.totalQuestions}
               </div>
               <div className="text-xs text-white/60 mt-1">
-                تم الإرسال في: {new Date(lockInfo.submittedAt).toLocaleDateString('ar-SA')}
+                تم الإرسال في:{" "}
+                {new Date(lockInfo.submittedAt).toLocaleDateString("ar-SA")}
               </div>
             </div>
           )}
@@ -334,7 +340,6 @@ const UserExam = () => {
     );
   }
 
-
   // Main Exam UI (ExamComponent style)
   const currentQuestionData = questions[currentQuestion - 1];
   return (
@@ -346,7 +351,11 @@ const UserExam = () => {
               {exam.title || "Exam"}
             </h1>
             <div className="flex flex-col items-end">
-              <div className={`text-sm font-medium ${timeRemaining <= 300 ? 'text-red-400' : 'text-[#c5f10f]'}`}>
+              <div
+                className={`text-sm font-medium ${
+                  timeRemaining <= 300 ? "text-red-400" : "text-[#c5f10f]"
+                }`}
+              >
                 الوقت المتبقي: {formatTimeRemaining(timeRemaining)}
               </div>
               {timeRemaining <= 300 && (
@@ -410,7 +419,8 @@ const UserExam = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Debug info */}
                 <div className="col-span-2 text-xs text-[#c5f10f]/70 mb-2">
-                  Question Type: {currentQuestionData.type} | Has Options: {currentQuestionData.options ? 'Yes' : 'No'}
+                  Question Type: {currentQuestionData.type} | Has Options:{" "}
+                  {currentQuestionData.options ? "Yes" : "No"}
                 </div>
                 {currentQuestionData.type === "mcq" &&
                   (currentQuestionData.options || []).map((option, idx) => {
@@ -426,20 +436,28 @@ const UserExam = () => {
                       <label key={optVal} className="block cursor-pointer">
                         <input
                           type="radio"
-                          name={`question-${currentQuestionData._id || currentQuestionData.id}`}
+                          name={`question-${
+                            currentQuestionData._id || currentQuestionData.id
+                          }`}
                           value={optVal}
                           checked={
-                            userAnswers[currentQuestionData._id || currentQuestionData.id] ===
-                            optVal
+                            userAnswers[
+                              currentQuestionData._id || currentQuestionData.id
+                            ] === optVal
                           }
                           onChange={() =>
-                            handleOptionChange(currentQuestionData._id || currentQuestionData.id, optVal)
+                            handleOptionChange(
+                              currentQuestionData._id || currentQuestionData.id,
+                              optVal
+                            )
                           }
                           className="hidden"
                         />
                         <div
                           className={`p-4 rounded-lg border-2 transition-all duration-200 ease-in-out text-right ${
-                            userAnswers[currentQuestionData._id || currentQuestionData.id] === optVal
+                            userAnswers[
+                              currentQuestionData._id || currentQuestionData.id
+                            ] === optVal
                               ? "bg-[#c5f10f] border-[#c5f10f] text-[#0f141b]"
                               : "bg-[#121821] border-[#c5f10f]/30 text-white hover:bg-[#1b232e] hover:border-[#c5f10f]/50"
                           }`}
@@ -449,15 +467,21 @@ const UserExam = () => {
                       </label>
                     );
                   })}
-                {(currentQuestionData.type === "boolean" || currentQuestionData.type === "truefalse" || currentQuestionData.type === "true_false") &&
+                {(currentQuestionData.type === "boolean" ||
+                  currentQuestionData.type === "truefalse" ||
+                  currentQuestionData.type === "true_false") &&
                   ["true", "false"].map((boolVal) => (
                     <label key={boolVal} className="block cursor-pointer">
                       <input
                         type="radio"
-                        name={`question-${currentQuestionData._id || currentQuestionData.id}`}
+                        name={`question-${
+                          currentQuestionData._id || currentQuestionData.id
+                        }`}
                         value={boolVal}
                         checked={
-                          userAnswers[currentQuestionData._id || currentQuestionData.id] === boolVal
+                          userAnswers[
+                            currentQuestionData._id || currentQuestionData.id
+                          ] === boolVal
                         }
                         onChange={() =>
                           handleOptionChange(
@@ -469,7 +493,9 @@ const UserExam = () => {
                       />
                       <div
                         className={`p-4 rounded-lg border-2 transition-all duration-200 ease-in-out text-right ${
-                          userAnswers[currentQuestionData._id || currentQuestionData.id] === boolVal
+                          userAnswers[
+                            currentQuestionData._id || currentQuestionData.id
+                          ] === boolVal
                             ? "bg-[#c5f10f] border-[#c5f10f] text-[#0f141b]"
                             : "bg-[#121821] border-[#c5f10f]/30 text-white hover:bg-[#1b232e] hover:border-[#c5f10f]/50"
                         }`}
@@ -481,17 +507,17 @@ const UserExam = () => {
                     </label>
                   ))}
                 {/* Fallback for unrecognized question types */}
-                {currentQuestionData.type !== "mcq" && 
-                 currentQuestionData.type !== "boolean" && 
-                 currentQuestionData.type !== "truefalse" && 
-                 currentQuestionData.type !== "true_false" && (
-                  <div className="col-span-2 p-4 bg-[#1b232e] border border-[#c5f10f]/30 rounded-lg">
-                    <p className="text-[#c5f10f]">
-                      Unrecognized question type: "{currentQuestionData.type}". 
-                      Please contact support.
-                    </p>
-                  </div>
-                )}
+                {currentQuestionData.type !== "mcq" &&
+                  currentQuestionData.type !== "boolean" &&
+                  currentQuestionData.type !== "truefalse" &&
+                  currentQuestionData.type !== "true_false" && (
+                    <div className="col-span-2 p-4 bg-[#1b232e] border border-[#c5f10f]/30 rounded-lg">
+                      <p className="text-[#c5f10f]">
+                        Unrecognized question type: "{currentQuestionData.type}
+                        ". Please contact support.
+                      </p>
+                    </div>
+                  )}
               </div>
             </>
           )}
