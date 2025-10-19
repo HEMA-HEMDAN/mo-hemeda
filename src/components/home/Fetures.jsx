@@ -4,26 +4,6 @@ import { OrbitControls } from "@react-three/drei";
 import Book from "./Book.jsx";
 import { services } from "../../const/index.js";
 
-const Scene = ({ isMobile }) => {
-  const ref = useRef();
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.01;
-    }
-  });
-
-  return (
-    <>
-      <hemisphereLight args={[0x0099ff, 0xaa5500, 1]} position={[0, 5, 0]} />
-      <ambientLight intensity={0.5} />
-      <group position={[0, 0, 0]} scale={0.02} ref={ref}>
-        <Book />
-      </group>
-      {!isMobile && <OrbitControls enableZoom={false} />}
-    </>
-  );
-};
-
 const Fetures = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
@@ -34,14 +14,29 @@ const Fetures = () => {
   }, []);
 
   const scrollRef = useRef(null);
-  const href = useRef(null);
 
+  const Scene = ({ isMobile }) => {
+    const ref = useRef();
+    useFrame(() => {
+      if (ref.current) {
+        ref.current.rotation.y += 0.01;
+      }
+    });
+
+    return (
+      <>
+        <hemisphereLight args={[0x0099ff, 0xaa5500, 1]} position={[0, 5, 0]} />
+        <ambientLight intensity={0.5} />
+        <group position={[0, 0, 0]} scale={0.02} ref={ref}>
+          <Book />
+        </group>
+        {!isMobile && <OrbitControls enableZoom={false} />}
+      </>
+    );
+  };
   return (
     <section>
-      <div
-        className="flex justify-center flex-row my-10 text-center items-center gap-10 text-black dark:text-white"
-        ref={href}
-      >
+      <div className="flex justify-center flex-row my-10 text-center items-center gap-10 text-black dark:text-white">
         <div className="w-1/4 md:w-1/3">
           <Canvas
             camera={{
