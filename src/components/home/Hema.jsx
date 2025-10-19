@@ -15,12 +15,14 @@ const Hema = ({ scrollToFeatures, text, image }) => {
           />
         </div>
         <video
-          src="/home/bgVed1.mp4"
           autoPlay
           loop
           muted
           className="absolute top-0 left-0 w-full h-full object-cover z-[-2] opacity-50"
-        ></video>
+        >
+          <source src="/home/bgVed1.mp4" type="video/mp4" />
+          <track kind="captions" />
+        </video>
         <div
           id="text"
           className="flex items-center justify-center flex-col h-full lg:w-1/2 p-4"
