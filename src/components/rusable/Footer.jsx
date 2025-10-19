@@ -55,12 +55,12 @@ const Footer = () => {
       </div>
 
       <div className="mt-10 text-center text-[10px] md:text-lg footer-link">
-      <p>
-      <a href="https://mo-wael.com/" target="_blank">
-          &copy; {new Date().getFullYear()} Mohamed Wael .
-        </a> 
+        <p>
+          <a href="https://mo-wael.com/" target="_blank">
+            &copy; {new Date().getFullYear()} Mohamed Wael .
+          </a>
         </p>
-        <a href="https://hema-cyan.vercel.app/" target="_blank">
+        <a href="https://ibrahim-hemdan.com/" target="_blank">
           &copy; {new Date().getFullYear()} HEMA .
         </a>
       </div>
