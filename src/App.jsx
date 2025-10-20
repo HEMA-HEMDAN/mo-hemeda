@@ -3,6 +3,8 @@ import ScrollToTop from "./components/rusable/ScrollToTop.jsx";
 import Navbar from "./components/rusable/navComponents/Navbar.jsx";
 import Footer from "./components/rusable/Footer.jsx";
 import WhatsAppButton from "./components/rusable/WhatsAppButton.jsx";
+import Loading from "./components/rusable/Loading";
+
 // SEO Components
 import CanonicalLink from "./components/rusable/CanonicalLink.jsx";
 import SEOHead from "./components/rusable/SEOHead.jsx";
@@ -261,6 +263,8 @@ const App = () => {
     <>
       {/* Main App */}
       <BrowserRouter>
+        <Loading />
+
         <CanonicalLink />
         <ScrollToTop />
         <Navbar />

@@ -6,7 +6,7 @@ const LazyWrapper = ({ children, fallback = null }) => {
     <Suspense
       fallback={
         fallback || (
-          <div className="flex items-center justify-center py-12">
+          <div className="flex items-center justify-center py-12 min-h-screen">
             <div className="flex items-center space-x-3">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#c5f10f]"></div>
               <p className="text-gray-300 text-lg font-medium">Loading...</p>

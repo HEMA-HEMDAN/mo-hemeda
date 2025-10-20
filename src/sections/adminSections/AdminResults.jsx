@@ -2,7 +2,6 @@ import React from "react";
 import { getExamResults } from "../../services/rusult";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/rusable/Loading";
 const AdminResults = () => {
   const { examId } = useParams();
 
@@ -43,7 +42,6 @@ const AdminResults = () => {
   }
   return (
     <>
-      <Loading />
       <section className="min-h-screen mt-20 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 text-center">
