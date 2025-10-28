@@ -46,7 +46,7 @@ const Footer = () => {
                     alt={social.name}
                     className="shake w-8 md:w-10 object-contain hover:scale-110 transition duration-300 ease-in-out"
                   />
-                  <p className="text-gray-200 text-[10px]">{social.name}</p>
+                  {/* <p className="text-gray-200 text-[10px]">{social.name}</p> */}
                 </a>
               );
             })}
@@ -54,13 +54,13 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="mt-10 text-center text-[10px] md:text-lg footer-link">
-      <p>
-      <a href="https://mo-wael.com/" target="_blank">
-          &copy; {new Date().getFullYear()} Mohamed Wael .
-        </a> 
+      <div className="mt-10 text-center text-[10px] md:text-lg footer-link flex flex-row items-center justify-center gap-5">
+        <p>
+          <a href="https://mo-wael.com/" target="_blank">
+            &copy; {new Date().getFullYear()} Mohamed Wael .
+          </a>
         </p>
-        <a href="https://hema-cyan.vercel.app/" target="_blank">
+        <a href="https://ibrahim-hemdan.com/" target="_blank">
           &copy; {new Date().getFullYear()} HEMA .
         </a>
       </div>

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getResult } from "../../services/rusult";
 import { getLessonById } from "../../services/lessons";
-import Loading from "../../components/rusable/Loading";
 const Result = () => {
   useEffect(() => {
     document.title = "Result";

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getUserResults } from "../../services/rusult";
-import Loading from "../../components/rusable/Loading";
 const User = () => {
   // this one is hell of work you need to do almost the same as the result file so good luck
   useEffect(() => {
@@ -47,7 +46,6 @@ const User = () => {
   console.log(results);
   return (
     <>
-      <Loading />
       <div className="min-h-screen mt-20 p-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
@@ -55,7 +53,9 @@ const User = () => {
           </h1>
 
           {results.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-300">You have no results yet.</p>
+            <p className="text-gray-600 dark:text-gray-300">
+              You have no results yet.
+            </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {results.map((r) => (
@@ -72,7 +72,9 @@ const User = () => {
                       <span className="font-semibold">{r.score ?? 0}</span>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{r.exam?.subject}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                    {r.exam?.subject}
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Allow: /user
+Allow: /academic-years
+Allow: /lessons
+Allow: /exams
+Allow: /auth
+
+# Disallow admin pages
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/users
+Disallow: /admin/academic-years
+Disallow: /admin/lessons
+Disallow: /admin/exams
+Disallow: /admin/exams/results
+
+# Disallow user-specific result pages
+Disallow: /exams/*/result
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
