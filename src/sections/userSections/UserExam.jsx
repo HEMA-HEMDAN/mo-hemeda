@@ -400,12 +400,12 @@ const UserExam = () => {
         <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-6 rounded-xl shadow-lg mb-6">
           {currentQuestionData && (
             <>
-              {currentQuestionData.image && (
+              {currentQuestionData.questionImgUrl && (
                 <div className="mb-6 text-center">
                   <img
-                    src={currentQuestionData.image}
+                    src={currentQuestionData.questionImgUrl}
                     alt={`السؤال ${currentQuestion}`}
-                    className="max-w-full h-auto rounded-lg shadow-md mx-auto"
+                    className="max-h-[400px] rounded-lg shadow-md mx-auto"
                   />
                 </div>
               )}

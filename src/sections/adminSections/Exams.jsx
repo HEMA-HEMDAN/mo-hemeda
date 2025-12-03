@@ -6,6 +6,7 @@ import {
   updateExam,
   createNewExam,
   deleteExam,
+  postQuestionImage,
 } from "../../services/lessons";
 import { MdDelete } from "react-icons/md";
 import { LuRefreshCw } from "react-icons/lu";
@@ -68,9 +69,33 @@ const Exams = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Process questions to upload images if present
+      const processedQuestions = await Promise.all(
+        form.questions.map(async (q) => {
+          let imageUrl = q.questionImgUlr || "";
+          if (q.image instanceof File) {
+            try {
+              const uploadRes = await postQuestionImage(q.image);
+              imageUrl =
+                uploadRes?.data?.url || uploadRes?.data?.display_url;
+            } catch (uploadErr) {
+              console.error("Failed to upload image for question", uploadErr);
+              toast.error("Failed to upload image for one or more questions");
+            }
+          }
+          // Return question without the File object, but with the URL
+          const { image, ...rest } = q;
+          return {
+            ...rest,
+            questionImgUrl: imageUrl,
+          };
+        })
+      );
+
       const examData = {
         ...form,
         date: new Date(form.date).toISOString(),
+        questions: processedQuestions,
       };
 
       if (editingExam) {
@@ -132,6 +157,8 @@ const Exams = () => {
           type: "mcq",
           options: ["", "", "", ""],
           correctAnswer: "",
+          questionImgUlr: "",
+          image: null,
         },
       ],
     }));
@@ -461,6 +488,39 @@ const Exams = () => {
                                   <option value="mcq">Multiple Choice</option>
                                   <option value="true_false">True/False</option>
                                 </select>
+                              </div>
+
+                              <div>
+                                <label className="block text-sm font-medium text-gray-300 mb-1">
+                                  Question Image
+                                </label>
+                                <div className="flex flex-col gap-2">
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) =>
+                                      updateQuestion(
+                                        index,
+                                        "image",
+                                        e.target.files[0]
+                                      )
+                                    }
+                                    className="w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#c5f10f]/10 file:text-[#c5f10f] hover:file:bg-[#c5f10f]/20"
+                                  />
+                                  {question.questionImgUlr && !question.image && (
+                                    <div className="text-xs text-green-400">
+                                      Current image:{" "}
+                                      <a
+                                        href={question.questionImgUlr}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="underline hover:text-green-300"
+                                      >
+                                        View
+                                      </a>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
 
                               {question.type === "mcq" && (
