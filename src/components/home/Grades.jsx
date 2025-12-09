@@ -10,7 +10,7 @@ const Grades = () => {
     getAcademicYears().then((res) => {
       setYears(res);
     });
-  });
+  }, []);
 
   return (
     <section className="my-30 w-full overflow-hidden">
