@@ -4,8 +4,7 @@ import About from "../components/home/About";
 import IconStripe from "../components/home/IconStripe";
 import Grades from "../components/home/Grades";
 import Hema from "../components/home/Hema";
-import Loading from "../components/rusable/Loading";
-import {useEffect} from "react";
+import { useEffect } from "react";
 const Home = () => {
   const featuresRef = useRef(null);
   const scrollToFeatures = () => {
@@ -16,14 +15,15 @@ const Home = () => {
   }, []);
   return (
     <>
-      <Loading />
       <Hema
         scrollToFeatures={scrollToFeatures}
         text={["ازيك  يا باشا عامل ايه 😊", "مش كفايه لعب ويلا  نذاكر 🤓"]}
         image={"/home/hero.png"}
       />
       <About />
-      <IconStripe />
+      <div>
+        <IconStripe />
+      </div>
       <div ref={featuresRef}>
         <Fetures />
       </div>

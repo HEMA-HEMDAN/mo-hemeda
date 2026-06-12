@@ -10,7 +10,7 @@ const Grades = () => {
     getAcademicYears().then((res) => {
       setYears(res);
     });
-  });
+  }, []);
 
   return (
     <section className="my-30 w-full overflow-hidden">
@@ -31,6 +31,8 @@ const Grades = () => {
               key={year._id}
               className="flex flex-col items-center justify-center"
             >
+               <Link
+                    to={`/academic-years/${year._id}`}>
               <div className="group rounded-xl overflow-hidden aspect-w-16 aspect-h-9 w-[300px] lg:w-[400px] md:w-[550px]">
                 <img
                   src={year.image}
@@ -38,12 +40,17 @@ const Grades = () => {
                   alt=""
                 />
               </div>
+              </Link>
 
-              <div className="flex flex-col mb-10 cursor-pointer">
-                <div className="flex flex-row gap-5 items-center justify-center px-4 mx-2 md:px-8 py-4 rounded-md -mt-10 bg-gray-100 dark:bg-gray-900 text-black dark:text-gray-200 z-10 hover:scale-105 duration-500">
+              <div className="flex flex-col items-center justify-center px-4 mx-2 md:px-8 py-4 rounded-md -mt-10 bg-gray-100 dark:bg-gray-900 text-black dark:text-gray-200 z-10 hover:scale-105 duration-500">
+                    <h1 className="text-center text-lg md:text-4xl lg:text-3xl">
+                      {year.title || "Untitled"}
+                    </h1>
+                    <div className="w-full h-1 bg-[#c5f10f] my-2"></div>
+                    <div className="flex flex-row gap-5 items-center justify-center">
                   <Link
                     to={`/academic-years/${year._id}`}
-                    className="text-center text-lg md:text-4xl lg:text-3xl bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white font-semibold py-2 px-6 rounded-lg"
+                    className="text-center text-sm md:text-xl lg:text-lg bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-2 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl"
                   >
                     دخول
                   </Link>
@@ -53,7 +60,7 @@ const Grades = () => {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <h1 className="text-center text-sm md:text-xl lg:text-lg text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white font-semibold py-2 px-6 rounded-lg">
+                      <h1 className="text-center text-sm md:text-xl lg:text-lg bg-gradient-to-r from-[#c5f10f] to-[#a8d708] text-[#1b232e] px-6 py-2 rounded-lg hover:from-[#a8d708] hover:to-[#c5f10f] transition-all duration-200 font-medium shadow-lg hover:shadow-xl">
                         Telegram
                       </h1>
                     </a>
@@ -62,9 +69,10 @@ const Grades = () => {
                       Telegram not available "
                     </h1>
                   )}
+                  </div>
                 </div>
               </div>
-            </div>
+           
           ))}
         </div>
       </div>

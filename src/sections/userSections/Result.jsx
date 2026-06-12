@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getResult } from "../../services/rusult";
 import { getLessonById } from "../../services/lessons";
-import Loading from "../../components/rusable/Loading";
 const Result = () => {
   useEffect(() => {
     document.title = "Result";
@@ -99,8 +98,8 @@ const Result = () => {
 
   if (loading) {
     return (
-      <section className="min-h-screen mt-20 p-4 flex items-center justify-center bg-gradient-to-br from-[#0f141b] via-[#1b232e] to-[#121821]">
-        <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-8 rounded-xl">
+      <section className="min-h-screen mt-20 p-4 flex items-center justify-center ">
+        <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-8 rounded-xl">
           <p className="text-[#c5f10f] text-lg font-medium">
             Loading result...
           </p>
@@ -111,8 +110,8 @@ const Result = () => {
 
   if (error) {
     return (
-      <section className="min-h-screen mt-20 p-4 flex items-center justify-center bg-gradient-to-br from-[#0f141b] via-[#1b232e] to-[#121821]">
-        <div className="bg-[#1b232e]/80 backdrop-blur border border-red-500/30 p-8 rounded-xl">
+      <section className="min-h-screen mt-20 p-4 flex items-center justify-center ">
+        <div className="bg-[#1b232e] backdrop-blur border border-red-500/30 p-8 rounded-xl">
           <p className="text-red-400 text-lg font-medium">{error}</p>
         </div>
       </section>
@@ -145,14 +144,14 @@ const Result = () => {
             نتائج الامتحان
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-            <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl">
+            <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl">
               <div className="text-sm text-white/70">الدرجة</div>
               <div className="text-2xl font-bold text-[#c5f10f]">
                 {result?.score ?? 0}
               </div>
             </div>
 
-            <div className="bg-[#1b232e]/80 backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl">
+            <div className="bg-[#1b232e] backdrop-blur border border-[#c5f10f]/20 p-4 rounded-xl">
               <div className="text-sm text-white/70">تاريخ الإرسال</div>
               <div className="text-sm font-medium text-white">
                 {formatDate(result?.submittedAt || result?.createdAt)}
@@ -163,7 +162,7 @@ const Result = () => {
 
         {exam ? (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               مراجعة تفصيلية للإجابات
             </h2>
             {result.answer.map((q, index) => {
@@ -174,16 +173,16 @@ const Result = () => {
               return (
                 <div
                   key={index}
-                  className="bg-[#1b232e]/80 backdrop-blur rounded-xl shadow border border-[#c5f10f]/20 p-6"
+                  className="bg-[#1b232e] backdrop-blur rounded-xl shadow border border-[#c5f10f]/20 p-6"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold  text-white">
                       السؤال {index + 1}
                     </h3>
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-white text-right">
+                    <p className=" text-white text-right">
                       {q.questionText || q.question || q.text}
                     </p>
                   </div>
@@ -191,7 +190,7 @@ const Result = () => {
                   <div className="space-y-3">
                     {correctAnswer !== undefined && correctAnswer !== null && (
                       <div className="bg-[#121821] border border-green-500/30 p-3 rounded-lg">
-                        <div className="text-sm text-white/70 mb-1">
+                        <div className="text-sm  text-white/70 mb-1">
                           الإجابة الصحيحة:
                         </div>
                         <div className="text-green-400 font-medium">

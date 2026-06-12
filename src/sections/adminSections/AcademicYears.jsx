@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AcademicYearsTable from "../../components/admin/academicyearcard";
-import Loading from "../../components/rusable/Loading";
 
 const AcademicYears = () => {
   const navigate = useNavigate();
@@ -34,13 +33,11 @@ const AcademicYears = () => {
   }
   return (
     <>
-      <Loading />
-      <section className="min-h-screen  p-6">
-      <div className="max-w-7xl mx-auto">
-        
-        <AcademicYearsTable onSelectYear={handleYearClick} />
-      </div>
-    </section>
+      <section className="min-h-screen  p-6 mt-5">
+        <div className="max-w-7xl mx-auto">
+          <AcademicYearsTable onSelectYear={handleYearClick} />
+        </div>
+      </section>
     </>
   );
 };

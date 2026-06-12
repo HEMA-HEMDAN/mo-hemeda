@@ -298,7 +298,7 @@ const ExamComponent = ({ questionsData }) => {
                 (opt) => opt.id === userAnswer
               )?.text;
               const isCorrect = userAnswer === correctAnswer?.id;
-
+       
               return (
                 <div
                   key={question.id}
@@ -321,10 +321,10 @@ const ExamComponent = ({ questionsData }) => {
                   </div>
 
                   {/* Question Image */}
-                  {question.image && (
+                  {(question.questionImgUrl || question.image) && (
                     <div className="mb-4 text-center">
                       <img
-                        src={question.image}
+                        src={question.questionImgUrl || question.image}
                         alt={`السؤال ${question.id}`}
                         className="max-w-full h-auto rounded-lg shadow-md mx-auto"
                       />
@@ -445,10 +445,14 @@ const ExamComponent = ({ questionsData }) => {
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
           {currentQuestionData && (
             <>
-              {currentQuestionData.image && (
+              {(currentQuestionData.questionImgUlr ||
+                currentQuestionData.image) && (
                 <div className="mb-6 text-center">
                   <img
-                    src={currentQuestionData.image}
+                    src={
+                      currentQuestionData.questionImgUlr ||
+                      currentQuestionData.image
+                    }
                     alt={`السؤال ${currentQuestionData.id}`}
                     className="max-w-full h-auto rounded-lg shadow-md mx-auto"
                   />
